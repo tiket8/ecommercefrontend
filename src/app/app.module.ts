@@ -9,6 +9,7 @@ import { BeterwereComponent } from './beterwere/beterwere.component';
 import { CarritoComponent } from './carrito/carrito.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { HttpClientModule } from '@angular/common/http';
+import { PedidosComponent } from './pedidos/pedidos.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -16,7 +17,8 @@ import { HttpClientModule } from '@angular/common/http';
     ElectronicaComponent,
     BeterwereComponent,
     CarritoComponent,
-    PerfilComponent   
+    PerfilComponent,
+    PedidosComponent   
   ],
   imports: [
     BrowserModule,
