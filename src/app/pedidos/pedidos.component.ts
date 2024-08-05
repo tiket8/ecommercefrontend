@@ -1,10 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { PedidoService } from '../pedido.service';
 
 @Component({
   selector: 'app-pedidos',
   templateUrl: './pedidos.component.html',
-  styleUrl: './pedidos.component.css'
+  styleUrls: ['./pedidos.component.css']
 })
-export class PedidosComponent {
+export class PedidosComponent implements OnInit {
+  pedidos: any[] = [];
 
+  constructor(private pedidoService: PedidoService) {}
+
+  ngOnInit(): void {
+    this.pedidoService.obtenerPedidos().subscribe(data => {
+      this.pedidos = data;
+    });
+  }
 }
