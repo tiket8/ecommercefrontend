@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AdminPedidoService } from '../../admin-pedido.service';
+import { AdminService } from '../../admin.service';
 
 @Component({
   selector: 'app-admin-pedidos',
@@ -9,17 +9,20 @@ import { AdminPedidoService } from '../../admin-pedido.service';
 export class AdminPedidosComponent implements OnInit {
   pedidos: any[] = [];
 
-  constructor(private adminPedidoService: AdminPedidoService) {}
+  constructor(private adminService: AdminService) {}
 
   ngOnInit(): void {
-    this.adminPedidoService.obtenerPedidos().subscribe(data => {
+    this.adminService.getPedidos().subscribe(data => {
       this.pedidos = data;
     });
   }
 
-  actualizarEstado(id: number, estado: string): void {
-    this.adminPedidoService.actualizarPedido(id, estado).subscribe(() => {
-      this.pedidos = this.pedidos.map(pedido => pedido.id === id ? { ...pedido, estado } : pedido);
+  updatePedido(id: string, estado: string): void {
+    this.adminService.updatePedido(id, estado).subscribe(response => {
+      // Actualiza el estado del pedido en la lista local
+      this.pedidos = this.pedidos.map(pedido => 
+        pedido.id === id ? { ...pedido, estado } : pedido
+      );
     });
   }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AdminUsuarioService } from '../../admin-usuario.service';
+import { AdminService } from '../../admin.service';
 
 @Component({
   selector: 'app-admin-usuarios',
@@ -9,17 +9,17 @@ import { AdminUsuarioService } from '../../admin-usuario.service';
 export class AdminUsuariosComponent implements OnInit {
   usuarios: any[] = [];
 
-  constructor(private adminUsuarioService: AdminUsuarioService) {}
+  constructor(private adminService: AdminService) {}
 
   ngOnInit(): void {
-    this.adminUsuarioService.obtenerUsuarios().subscribe(data => {
+    this.adminService.getUsuarios().subscribe(data => {
       this.usuarios = data;
     });
   }
 
-  eliminarUsuario(id: number): void {
-    this.adminUsuarioService.eliminarUsuario(id).subscribe(() => {
-      this.usuarios = this.usuarios.filter(usuario => usuario.id !== id);
+  deleteUsuario(id: string): void {
+    this.adminService.deleteUsuario(id).subscribe(response => {
+      this.usuarios = this.usuarios.filter(u => u.id !== id);
     });
   }
 }

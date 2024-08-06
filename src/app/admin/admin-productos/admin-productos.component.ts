@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AdminProductoService } from '../../admin-producto.service';
+import { AdminService } from '../../admin.service';
 
 @Component({
   selector: 'app-admin-productos',
@@ -9,17 +9,31 @@ import { AdminProductoService } from '../../admin-producto.service';
 export class AdminProductosComponent implements OnInit {
   productos: any[] = [];
 
-  constructor(private adminProductoService: AdminProductoService) {}
+  constructor(private adminService: AdminService) {}
 
   ngOnInit(): void {
-    this.adminProductoService.obtenerProductos().subscribe(data => {
+    this.adminService.getProductos().subscribe(data => {
       this.productos = data;
     });
   }
 
-  desactivarProducto(id: number): void {
-    this.adminProductoService.desactivarProducto(id).subscribe(() => {
-      this.productos = this.productos.filter(producto => producto.id !== id);
+  createProducto(producto: any): void {
+    this.adminService.createProducto(producto).subscribe(response => {
+      this.productos.push(response);
+    });
+  }
+
+  updateProducto(id: string, producto: any): void {
+    this.adminService.updateProducto(id, producto).subscribe(response => {
+      this.productos = this.productos.map(p =>
+        p.id === id ? response : p
+      );
+    });
+  }
+
+  deleteProducto(id: string): void {
+    this.adminService.deleteProducto(id).subscribe(response => {
+      this.productos = this.productos.filter(p => p.id !== id);
     });
   }
 }

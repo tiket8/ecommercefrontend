@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AdminEstadisticasService } from '../../admin-estadisticas.service';
+import { AdminService } from '../../admin.service';
 
 @Component({
   selector: 'app-admin-estadisticas',
@@ -7,12 +7,12 @@ import { AdminEstadisticasService } from '../../admin-estadisticas.service';
   styleUrls: ['./admin-estadisticas.component.css']
 })
 export class AdminEstadisticasComponent implements OnInit {
-  estadisticas: any;
+  estadisticas: any = {};
 
-  constructor(private adminEstadisticasService: AdminEstadisticasService) {}
+  constructor(private adminService: AdminService) {}
 
   ngOnInit(): void {
-    this.adminEstadisticasService.obtenerEstadisticas().subscribe(data => {
+    this.adminService.getEstadisticas().subscribe(data => {
       this.estadisticas = data;
     });
   }
