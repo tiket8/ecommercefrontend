@@ -23,10 +23,11 @@
           <td>{{ producto.cantidad }}</td>
           <td>{{ producto.categoria }}</td>
           <td>{{ producto.estado ? 'Activo' : 'Inactivo' }}</td>
-          <td>
-            <a [routerLink]="['/admin/productos', producto.id]" class="btn btn-warning">Editar</a>
-            <button (click)="desactivarProducto(producto.id)" class="btn btn-danger">Desactivar</button>
-          </td>
+          <div *ngFor="let producto of productos">
+            <p>{{ producto.nombre }}</p>
+            <button (click)="desactivarProducto(producto.id)">Desactivar</button>
+          </div>
+          
         </tr>
       </tbody>
     </table>

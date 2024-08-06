@@ -31,7 +31,7 @@ export class AdminProductosComponent implements OnInit {
     });
   }
 
-  deleteProducto(id: string): void {
+  desactivarProducto(id: string): void {
     this.adminService.deleteProducto(id).subscribe(response => {
       this.productos = this.productos.filter(p => p.id !== id);
     });

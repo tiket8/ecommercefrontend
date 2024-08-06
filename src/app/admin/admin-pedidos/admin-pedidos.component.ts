@@ -17,7 +17,7 @@ export class AdminPedidosComponent implements OnInit {
     });
   }
 
-  updatePedido(id: string, estado: string): void {
+  actualizarEstado(id: string, estado: string): void {
     this.adminService.updatePedido(id, estado).subscribe(response => {
       // Actualiza el estado del pedido en la lista local
       this.pedidos = this.pedidos.map(pedido => 
