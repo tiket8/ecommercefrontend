@@ -33,7 +33,6 @@ const routes: Routes = [
       { path: 'estadisticas', component: AdminEstadisticasComponent }
     ]
   },
-  { path: '', redirectTo: '/inicio', pathMatch: 'full' },
   { path: '**', redirectTo: '' }
 ];
 

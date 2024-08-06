@@ -10,19 +10,24 @@ import { CarritoComponent } from './carrito/carrito.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { HttpClientModule } from '@angular/common/http';
 import { PedidosComponent } from './pedidos/pedidos.component';
-import { AdminPedidosComponent } from './admin/admin-pedidos/admin-pedidos.component';
-import { AdminProductosComponent } from './admin/admin-productos/admin-productos.component';
-import { AdminUsuariosComponent } from './admin/admin-usuarios/admin-usuarios.component';
-import { AdminEstadisticasComponent } from './admin/admin-estadisticas/admin-estadisticas.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './auth.interceptor';
 import { FormsModule } from '@angular/forms';
 import { OfertaService } from './oferta.service';
+
+//componentes del administrador
+import { AdminPedidosComponent } from './admin/admin-pedidos/admin-pedidos.component';
+import { AdminProductosComponent } from './admin/admin-productos/admin-productos.component';
+import { AdminUsuariosComponent } from './admin/admin-usuarios/admin-usuarios.component';
+import { AdminEstadisticasComponent } from './admin/admin-estadisticas/admin-estadisticas.component';
 import { AdminMenuComponent } from './admin/admin-menu/admin-menu.component';
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
 
+//servicios del administrador
+
+import { AdminService } from './admin.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -50,7 +55,8 @@ import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-    OfertaService
+    OfertaService,
+    AdminService
   ],
   bootstrap: [AppComponent]
 })
