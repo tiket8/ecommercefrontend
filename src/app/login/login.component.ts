@@ -8,18 +8,22 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  email: string = '';
-  password: string = '';
+  credentials = {
+    email: '',
+    password: ''
+  };
+  error: string | null = null;
 
   constructor(private authService: AuthService, private router: Router) {}
 
-  onSubmit(): void {
-    const credentials = { email: this.email, password: this.password };
-    this.authService.login(credentials).subscribe(response => {
-      localStorage.setItem('token', response.token);
-      this.router.navigate(['/']);
-    }, error => {
-      console.error('Error en el inicio de sesión', error);
-    });
+  login(): void {
+    this.authService.login(this.credentials).subscribe(
+      response => {
+        // El redireccionamiento se maneja en el servicio AuthService
+      },
+      error => {
+        this.error = 'Credenciales incorrectas';
+      }
+    );
   }
 }

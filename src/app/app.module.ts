@@ -15,6 +15,8 @@ import { RegisterComponent } from './register/register.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './auth.interceptor';
 import { FormsModule } from '@angular/forms';
+
+//Servicios de Inicio
 import { OfertaService } from './oferta.service';
 
 //componentes del administrador
@@ -28,6 +30,7 @@ import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard
 //servicios del administrador
 
 import { AdminService } from './admin.service';
+
 @NgModule({
   declarations: [
     AppComponent,

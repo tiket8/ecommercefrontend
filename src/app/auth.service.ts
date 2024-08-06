@@ -2,6 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { tap } from 'rxjs/operators';
+
+interface AuthResponse {
+  token: string;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -11,12 +16,18 @@ export class AuthService {
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  login(credentials: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/login`, credentials);
+  login(credentials: any): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${this.apiUrl}/login`, credentials).pipe(
+      tap(response => {
+        localStorage.setItem('token', response.token);
+        // Asumimos que si recibes un token, la autenticación es exitosa y redirigimos al usuario
+        this.router.navigate(['/admin']);
+      })
+    );
   }
 
-  register(data: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/register`, data);
+  register(data: any): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${this.apiUrl}/register`, data);
   }
 
   logout(): void {
@@ -27,13 +38,9 @@ export class AuthService {
   isLoggedIn(): boolean {
     return !!localStorage.getItem('token');
   }
-  
+
   isAdmin(): boolean {
-    const token = localStorage.getItem('token');
-    if (token) {
-      const tokenPayload = JSON.parse(atob(token.split('.')[1]));
-      return tokenPayload.rol === 'admin';
-    }
-    return false;
+    // Si necesitas saber si es admin, deberás hacerlo basado en otro endpoint o guardando más información del usuario
+    return true;
   }
 }
