@@ -27,4 +27,13 @@ export class AuthService {
   isLoggedIn(): boolean {
     return !!localStorage.getItem('token');
   }
+  
+  isAdmin(): boolean {
+    const token = localStorage.getItem('token');
+    if (token) {
+      const tokenPayload = JSON.parse(atob(token.split('.')[1]));
+      return tokenPayload.rol === 'admin';
+    }
+    return false;
+  }
 }

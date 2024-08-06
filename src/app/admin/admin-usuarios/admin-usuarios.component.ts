@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AdminUsuarioService } from '../admin-usuario.service';
+import { AdminUsuarioService } from '../../admin-usuario.service';
 
 @Component({
   selector: 'app-admin-usuarios',

@@ -5,10 +5,12 @@ import { ElectronicaComponent } from './electronica/electronica.component';
 import { BeterwereComponent } from './beterwere/beterwere.component';
 import { CarritoComponent } from './carrito/carrito.component';
 import { PerfilComponent } from './perfil/perfil.component';
-import { AdminPedidosComponent } from './admin-pedidos/admin-pedidos.component';
-import { AdminProductosComponent } from './admin-productos/admin-productos.component';
-import { AdminUsuariosComponent } from './admin-usuarios/admin-usuarios.component';
-import { AdminEstadisticasComponent } from './admin-estadisticas/admin-estadisticas.component';
+import { AdminPedidosComponent } from './admin/admin-pedidos/admin-pedidos.component';
+import { AdminProductosComponent } from './admin/admin-productos/admin-productos.component';
+import { AdminUsuariosComponent } from './admin/admin-usuarios/admin-usuarios.component';
+import { AdminEstadisticasComponent } from './admin/admin-estadisticas/admin-estadisticas.component';
+import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
+import { AdminMenuComponent } from './admin/admin-menu/admin-menu.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { AuthGuard } from './auth.guard';
@@ -22,13 +24,13 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   {
-    path: 'admin',
-    canActivate: [AuthGuard],
+    path: 'admin', component: AdminDashboardComponent, canActivate: [AuthGuard],
     children: [
+      { path: 'menu', component: AdminMenuComponent },
       { path: 'pedidos', component: AdminPedidosComponent },
       { path: 'productos', component: AdminProductosComponent },
       { path: 'usuarios', component: AdminUsuariosComponent },
-      { path: 'estadisticas', component: AdminEstadisticasComponent },
+      { path: 'estadisticas', component: AdminEstadisticasComponent }
     ]
   },
   { path: '', redirectTo: '/inicio', pathMatch: 'full' },

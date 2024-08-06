@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AdminEstadisticasService } from '../admin-estadisticas.service';
+import { AdminEstadisticasService } from '../../admin-estadisticas.service';
 
 @Component({
   selector: 'app-admin-estadisticas',

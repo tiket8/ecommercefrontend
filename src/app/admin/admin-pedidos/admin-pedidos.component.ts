@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AdminPedidoService } from '../admin-pedido.service';
+import { AdminPedidoService } from '../../admin-pedido.service';
 
 @Component({
   selector: 'app-admin-pedidos',

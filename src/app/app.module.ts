@@ -10,16 +10,18 @@ import { CarritoComponent } from './carrito/carrito.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { HttpClientModule } from '@angular/common/http';
 import { PedidosComponent } from './pedidos/pedidos.component';
-import { AdminPedidosComponent } from './admin-pedidos/admin-pedidos.component';
-import { AdminProductosComponent } from './admin-productos/admin-productos.component';
-import { AdminUsuariosComponent } from './admin-usuarios/admin-usuarios.component';
-import { AdminEstadisticasComponent } from './admin-estadisticas/admin-estadisticas.component';
+import { AdminPedidosComponent } from './admin/admin-pedidos/admin-pedidos.component';
+import { AdminProductosComponent } from './admin/admin-productos/admin-productos.component';
+import { AdminUsuariosComponent } from './admin/admin-usuarios/admin-usuarios.component';
+import { AdminEstadisticasComponent } from './admin/admin-estadisticas/admin-estadisticas.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './auth.interceptor';
 import { FormsModule } from '@angular/forms';
 import { OfertaService } from './oferta.service';
+import { AdminMenuComponent } from './admin/admin-menu/admin-menu.component';
+import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,9 @@ import { OfertaService } from './oferta.service';
     AdminUsuariosComponent,
     AdminEstadisticasComponent,
     LoginComponent,
-    RegisterComponent   
+    RegisterComponent,
+    AdminMenuComponent,
+    AdminDashboardComponent
   ],
   imports: [
     BrowserModule,
