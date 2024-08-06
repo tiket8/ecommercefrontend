@@ -9,19 +9,30 @@ import { AdminPedidosComponent } from './admin-pedidos/admin-pedidos.component';
 import { AdminProductosComponent } from './admin-productos/admin-productos.component';
 import { AdminUsuariosComponent } from './admin-usuarios/admin-usuarios.component';
 import { AdminEstadisticasComponent } from './admin-estadisticas/admin-estadisticas.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
-    { path: '', component: InicioComponent },
-    { path: 'electronica', component: ElectronicaComponent },
-    { path: 'beterwere', component: BeterwereComponent },
-    { path: 'carrito', component: CarritoComponent },
-    { path: 'perfil', component: PerfilComponent },
-    { path: 'admin/pedidos', component: AdminPedidosComponent },
-    { path: 'admin/productos', component: AdminProductosComponent },
-    { path: 'admin/usuarios', component: AdminUsuariosComponent },
-    { path: 'admin/estadisticas', component: AdminEstadisticasComponent },
+  { path: '', component: InicioComponent },
+  { path: 'electronica', component: ElectronicaComponent },
+  { path: 'beterwere', component: BeterwereComponent },
+  { path: 'carrito', component: CarritoComponent },
+  { path: 'perfil', component: PerfilComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
+  {
+    path: 'admin',
+    canActivate: [AuthGuard],
+    children: [
+      { path: 'pedidos', component: AdminPedidosComponent },
+      { path: 'productos', component: AdminProductosComponent },
+      { path: 'usuarios', component: AdminUsuariosComponent },
+      { path: 'estadisticas', component: AdminEstadisticasComponent },
+    ]
+  },
   { path: '', redirectTo: '/inicio', pathMatch: 'full' },
-    { path: '**', redirectTo: '' }
+  { path: '**', redirectTo: '' }
 ];
 
 @NgModule({

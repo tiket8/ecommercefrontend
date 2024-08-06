@@ -14,6 +14,11 @@ import { AdminPedidosComponent } from './admin-pedidos/admin-pedidos.component';
 import { AdminProductosComponent } from './admin-productos/admin-productos.component';
 import { AdminUsuariosComponent } from './admin-usuarios/admin-usuarios.component';
 import { AdminEstadisticasComponent } from './admin-estadisticas/admin-estadisticas.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './auth.interceptor';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -27,17 +32,23 @@ import { AdminEstadisticasComponent } from './admin-estadisticas/admin-estadisti
     AdminPedidosComponent,
     AdminProductosComponent,
     AdminUsuariosComponent,
-    AdminEstadisticasComponent   
+    AdminEstadisticasComponent,
+    LoginComponent,
+    RegisterComponent   
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    RouterModule
+    RouterModule,
+    FormsModule
 
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
+
 })
 export class AppModule { }
 
