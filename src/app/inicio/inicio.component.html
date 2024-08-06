@@ -1,54 +1,107 @@
 <div class="container mt-5">
-    <div class="row">
-      <div class="col-12 text-center">
-        <h1>Bienvenido a GPETRONIC</h1>
-        <p class="lead">Ofertas increíbles en productos de electrónica y Beterwere</p>
-      </div>
+  <div class="row">
+    <div class="col-12 text-center">
+      <h1>Bienvenido a GPETRONIC</h1>
+      <p class="lead">Ofertas increíbles en productos de electrónica y Beterwere</p>
     </div>
-    
-    <div class="row">
-      <div class="col-12 text-center">
-        <a routerLink="/login" class="btn btn-primary m-2">Iniciar Sesión</a>
-        <a routerLink="/registro" class="btn btn-secondary m-2">Registrarse</a>
-      </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12 text-center">
+      <button (click)="toggleLogin()" class="btn btn-primary m-2">Iniciar Sesión</button>
+      <button (click)="toggleRegister()" class="btn btn-secondary m-2">Registrarse</button>
     </div>
-    
-    <div class="row mt-5">
-      <div class="col-6 text-center">
-        <a routerLink="/electronica" class="btn btn-info btn-lg">Productos de Electrónica</a>
-      </div>
-      <div class="col-6 text-center">
-        <a routerLink="/beterwere" class="btn btn-success btn-lg">Productos de Beterwere</a>
-      </div>
+  </div>
+
+  <div class="row mt-5" *ngIf="showLogin">
+    <div class="col-12">
+      <h2>Iniciar Sesión</h2>
+      <form (submit)="onLoginSubmit()">
+        <div class="form-group">
+          <label for="loginEmail">Email</label>
+          <input type="email" class="form-control" id="loginEmail" [(ngModel)]="loginData.email" name="loginEmail" required>
+        </div>
+        <div class="form-group">
+          <label for="loginPassword">Contraseña</label>
+          <input type="password" class="form-control" id="loginPassword" [(ngModel)]="loginData.password" name="loginPassword" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+      </form>
     </div>
-    
-    <div class="row mt-5">
-      <div class="col-12">
-        <h2>Ofertas</h2>
-        <div class="row">
-          <!-- Aquí se listarán las ofertas -->
-          <div class="col-md-4" *ngFor="let oferta of ofertas">
-            <div class="card mb-4">
-              <img class="card-img-top" [src]="oferta.foto" alt="Imagen de la oferta">
-              <div class="card-body">
-                <h5 class="card-title">{{ oferta.nombre }}</h5>
-                <p class="card-text">{{ oferta.descripcion }}</p>
-                <p class="card-text"><strong>{{ oferta.precio | currency }}</strong></p>
-                <a [routerLink]="['/producto', oferta.id]" class="btn btn-primary">Ver más</a>
-              </div>
+  </div>
+
+  <div class="row mt-5" *ngIf="showRegister">
+    <div class="col-12">
+      <h2>Registro</h2>
+      <form (submit)="onRegisterSubmit()">
+        <div class="form-group">
+          <label for="registerNombre">Nombre</label>
+          <input type="text" class="form-control" id="registerNombre" [(ngModel)]="registerData.nombre" name="registerNombre" required>
+        </div>
+        <div class="form-group">
+          <label for="registerDireccion">Dirección</label>
+          <input type="text" class="form-control" id="registerDireccion" [(ngModel)]="registerData.direccion" name="registerDireccion">
+        </div>
+        <div class="form-group">
+          <label for="registerTelefono">Teléfono</label>
+          <input type="text" class="form-control" id="registerTelefono" [(ngModel)]="registerData.telefono" name="registerTelefono">
+        </div>
+        <div class="form-group">
+          <label for="registerCelular">Celular</label>
+          <input type="text" class="form-control" id="registerCelular" [(ngModel)]="registerData.celular" name="registerCelular">
+        </div>
+        <div class="form-group">
+          <label for="registerEmail">Email</label>
+          <input type="email" class="form-control" id="registerEmail" [(ngModel)]="registerData.email" name="registerEmail" required>
+        </div>
+        <div class="form-group">
+          <label for="registerPassword">Contraseña</label>
+          <input type="password" class="form-control" id="registerPassword" [(ngModel)]="registerData.password" name="registerPassword" required>
+        </div>
+        <div class="form-group">
+          <label for="registerPasswordConfirmation">Confirmar Contraseña</label>
+          <input type="password" class="form-control" id="registerPasswordConfirmation" [(ngModel)]="registerData.password_confirmation" name="registerPasswordConfirmation" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Registrarse</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="row mt-5">
+    <div class="col-6 text-center">
+      <a routerLink="/electronica" class="btn btn-info btn-lg">Productos de Electrónica</a>
+    </div>
+    <div class="col-6 text-center">
+      <a routerLink="/beterwere" class="btn btn-success btn-lg">Productos de Beterwere</a>
+    </div>
+  </div>
+
+  <div class="row mt-5">
+    <div class="col-12">
+      <h2>Ofertas</h2>
+      <div class="row">
+        <!-- Aquí se listarán las ofertas -->
+        <div class="col-md-4" *ngFor="let oferta of ofertas">
+          <div class="card mb-4">
+            <img class="card-img-top" [src]="oferta.foto" alt="Imagen de la oferta">
+            <div class="card-body">
+              <h5 class="card-title">{{ oferta.nombre }}</h5>
+              <p class="card-text">{{ oferta.descripcion }}</p>
+              <p class="card-text"><strong>{{ oferta.precio | currency }}</strong></p>
+              <a [routerLink]="['/producto', oferta.id]" class="btn btn-primary">Ver más</a>
             </div>
           </div>
         </div>
       </div>
     </div>
-    
-    <footer class="mt-5">
-      <div class="row">
-        <div class="col-12 text-center">
-          <p>&copy; 2024 GPETRONIC. Todos los derechos reservados.</p>
-          <p>Contacto: "contactoQgpetronic.com" | Tel: +123 456 7890</p>
-        </div>
-      </div>
-    </footer>
   </div>
-  
+
+  <footer class="mt-5">
+    <div class="row">
+      <div class="col-12 text-center">
+        <p>&copy; 2024 GPETRONIC. Todos los derechos reservados.</p>
+        <p>Contacto: "contactoQgpetronic.com" | Tel: +123 456 7890</p>
+      </div>
+    </div>
+  </footer>
+</div>
