@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
+import { OfertaService } from '../oferta.service';
 
 @Component({
   selector: 'app-inicio',
@@ -25,12 +26,17 @@ export class InicioComponent implements OnInit {
 
   showLogin = false;
   showRegister = false;
-  ofertas: any[] = [];  // Asegúrate de definir tus ofertas
+  validationErrors: any = {};
+  ofertas: any[] = []; // Define la propiedad 'ofertas' como un arreglo
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private ofertaService: OfertaService
+  ) {}
 
   ngOnInit(): void {
-    // Aquí puedes inicializar las ofertas si es necesario
+    this.obtenerOfertas(); // Llama al método para obtener las ofertas cuando el componente se inicialice
   }
 
   toggleLogin(): void {
@@ -58,11 +64,18 @@ export class InicioComponent implements OnInit {
       this.router.navigate(['/']);
     }, error => {
       if (error.status === 422) {
-        // Muestra los errores de validación
-        console.error('Errores de validación', error.error.errors);
+        this.validationErrors = error.error.errors;
       } else {
         console.error('Error en el registro', error);
       }
+    });
+  }
+
+  obtenerOfertas(): void {
+    this.ofertaService.getOfertas().subscribe(response => {
+      this.ofertas = response; // Asigna la respuesta a la propiedad 'ofertas'
+    }, error => {
+      console.error('Error al obtener las ofertas', error);
     });
   }
 }

@@ -37,30 +37,51 @@
         <div class="form-group">
           <label for="registerNombre">Nombre</label>
           <input type="text" class="form-control" id="registerNombre" [(ngModel)]="registerData.nombre" name="registerNombre" required>
+          <div *ngIf="validationErrors?.nombre" class="alert alert-danger">
+            {{ validationErrors.nombre[0] }}
+          </div>
         </div>
         <div class="form-group">
           <label for="registerDireccion">Dirección</label>
           <input type="text" class="form-control" id="registerDireccion" [(ngModel)]="registerData.direccion" name="registerDireccion">
+          <div *ngIf="validationErrors?.direccion" class="alert alert-danger">
+            {{ validationErrors.direccion[0] }}
+          </div>
         </div>
         <div class="form-group">
           <label for="registerTelefono">Teléfono</label>
           <input type="text" class="form-control" id="registerTelefono" [(ngModel)]="registerData.telefono" name="registerTelefono">
+          <div *ngIf="validationErrors?.telefono" class="alert alert-danger">
+            {{ validationErrors.telefono[0] }}
+          </div>
         </div>
         <div class="form-group">
           <label for="registerCelular">Celular</label>
           <input type="text" class="form-control" id="registerCelular" [(ngModel)]="registerData.celular" name="registerCelular">
+          <div *ngIf="validationErrors?.celular" class="alert alert-danger">
+            {{ validationErrors.celular[0] }}
+          </div>
         </div>
         <div class="form-group">
           <label for="registerEmail">Email</label>
           <input type="email" class="form-control" id="registerEmail" [(ngModel)]="registerData.email" name="registerEmail" required>
+          <div *ngIf="validationErrors?.email" class="alert alert-danger">
+            {{ validationErrors.email[0] }}
+          </div>
         </div>
         <div class="form-group">
           <label for="registerPassword">Contraseña</label>
           <input type="password" class="form-control" id="registerPassword" [(ngModel)]="registerData.password" name="registerPassword" required>
+          <div *ngIf="validationErrors?.password" class="alert alert-danger">
+            {{ validationErrors.password[0] }}
+          </div>
         </div>
         <div class="form-group">
           <label for="registerPasswordConfirmation">Confirmar Contraseña</label>
           <input type="password" class="form-control" id="registerPasswordConfirmation" [(ngModel)]="registerData.password_confirmation" name="registerPasswordConfirmation" required>
+          <div *ngIf="validationErrors?.password_confirmation" class="alert alert-danger">
+            {{ validationErrors.password_confirmation[0] }}
+          </div>
         </div>
         <button type="submit" class="btn btn-primary">Registrarse</button>
       </form>
@@ -100,7 +121,7 @@
     <div class="row">
       <div class="col-12 text-center">
         <p>&copy; 2024 GPETRONIC. Todos los derechos reservados.</p>
-        <p>Contacto: "contactoQgpetronic.com" | Tel: +123 456 7890</p>
+        <p>Contacto: "contacto"&#64;"gpetronic.com" | Tel: +123 456 7890</p>
       </div>
     </div>
   </footer>

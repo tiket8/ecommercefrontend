@@ -19,6 +19,7 @@ import { RegisterComponent } from './register/register.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './auth.interceptor';
 import { FormsModule } from '@angular/forms';
+import { OfertaService } from './oferta.service';
 
 @NgModule({
   declarations: [
@@ -42,13 +43,11 @@ import { FormsModule } from '@angular/forms';
     HttpClientModule,
     RouterModule,
     FormsModule
-
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    OfertaService
   ],
   bootstrap: [AppComponent]
-
 })
 export class AppModule { }
-
