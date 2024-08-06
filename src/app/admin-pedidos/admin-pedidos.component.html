@@ -1,0 +1,32 @@
+<div class="container">
+    <h1>Gestión de Pedidos</h1>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Usuario</th>
+          <th>Producto</th>
+          <th>Cantidad</th>
+          <th>Tipo de Pago</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let pedido of pedidos">
+          <td>{{ pedido.id }}</td>
+          <td>{{ pedido.usuario.nombre }}</td>
+          <td>{{ pedido.producto.nombre }}</td>
+          <td>{{ pedido.cantidad }}</td>
+          <td>{{ pedido.tipo_pago }}</td>
+          <td>{{ pedido.estado }}</td>
+          <td>
+            <button (click)="actualizarEstado(pedido.id, 'aceptado')" class="btn btn-success">Aceptar</button>
+            <button (click)="actualizarEstado(pedido.id, 'rechazado')" class="btn btn-danger">Rechazar</button>
+            <button (click)="actualizarEstado(pedido.id, 'entregado')" class="btn btn-primary">Marcar como Entregado</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

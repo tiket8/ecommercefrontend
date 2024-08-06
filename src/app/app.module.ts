@@ -10,6 +10,11 @@ import { CarritoComponent } from './carrito/carrito.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { HttpClientModule } from '@angular/common/http';
 import { PedidosComponent } from './pedidos/pedidos.component';
+import { AdminPedidosComponent } from './admin-pedidos/admin-pedidos.component';
+import { AdminProductosComponent } from './admin-productos/admin-productos.component';
+import { AdminUsuariosComponent } from './admin-usuarios/admin-usuarios.component';
+import { AdminEstadisticasComponent } from './admin-estadisticas/admin-estadisticas.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,7 +23,11 @@ import { PedidosComponent } from './pedidos/pedidos.component';
     BeterwereComponent,
     CarritoComponent,
     PerfilComponent,
-    PedidosComponent   
+    PedidosComponent,
+    AdminPedidosComponent,
+    AdminProductosComponent,
+    AdminUsuariosComponent,
+    AdminEstadisticasComponent   
   ],
   imports: [
     BrowserModule,
