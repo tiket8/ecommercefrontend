@@ -24,16 +24,16 @@ export class AdminService {
   }
 
   // Productos
-  agregarProducto(producto: FormData): Observable<any> {
-    return this.http.post(`${this.apiUrl}/productos`, producto);
+  obtenerProductos(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/admin/productos`);
   }
 
-  obtenerProductos(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/productos`);
+  agregarProducto(data: FormData): Observable<any> {
+    return this.http.post(`${this.apiUrl}/admin/productos`, data);
   }
 
   desactivarProducto(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/productos/${id}`);
+    return this.http.delete(`${this.apiUrl}/admin/productos/${id}`);
   }
 
   // Usuarios

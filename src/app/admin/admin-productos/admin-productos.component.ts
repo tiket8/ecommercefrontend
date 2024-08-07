@@ -9,6 +9,7 @@ import { AdminService } from '../../admin.service';
 })
 export class AdminProductosComponent implements OnInit {
   productos: any[] = [];
+  mostrarFormulario: boolean = false;
   nuevoProducto = {
     nombre: '',
     descripcion: '',
@@ -16,6 +17,7 @@ export class AdminProductosComponent implements OnInit {
     cantidad: 0,
     categoria: 'electronica',
     estado: true,
+    oferta: false,
     foto: null
   };
 
@@ -40,6 +42,7 @@ export class AdminProductosComponent implements OnInit {
     formData.append('cantidad', this.nuevoProducto.cantidad.toString());
     formData.append('categoria', this.nuevoProducto.categoria);
     formData.append('estado', this.nuevoProducto.estado.toString());
+    formData.append('oferta', this.nuevoProducto.oferta ? '1' : '0');
     if (this.nuevoProducto.foto) {
       formData.append('foto', this.nuevoProducto.foto);
     }
