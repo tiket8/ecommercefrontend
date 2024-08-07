@@ -6,7 +6,7 @@ import { tap } from 'rxjs/operators';
 
 interface AuthResponse {
   token: string;
-  user: { rol: string }; // Asumiendo que la API devuelve el rol del usuario
+  usuario: any;
 }
 
 @Injectable({
@@ -21,25 +21,25 @@ export class AuthService {
     return this.http.post<AuthResponse>(`${this.apiUrl}/login`, credentials).pipe(
       tap(response => {
         localStorage.setItem('token', response.token);
-        // Almacena el rol del usuario
-        localStorage.setItem('rol', response.user.rol);
-        // Redirige según el rol del usuario
-        if (response.user.rol === 'admin') {
-          this.router.navigate(['/admin']);
-        } else {
-          this.router.navigate(['/']);
-        }
+        localStorage.setItem('usuario', JSON.stringify(response.usuario));
+        this.handleUserRedirect(response.usuario);
       })
     );
   }
 
   register(data: any): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${this.apiUrl}/register`, data);
+    return this.http.post<AuthResponse>(`${this.apiUrl}/register`, data).pipe(
+      tap(response => {
+        localStorage.setItem('token', response.token);
+        localStorage.setItem('usuario', JSON.stringify(response.usuario));
+        this.handleUserRedirect(response.usuario);
+      })
+    );
   }
 
   logout(): void {
     localStorage.removeItem('token');
-    localStorage.removeItem('rol'); // Eliminar también el rol
+    localStorage.removeItem('usuario');
     this.router.navigate(['/login']);
   }
 
@@ -48,6 +48,24 @@ export class AuthService {
   }
 
   isAdmin(): boolean {
-    return localStorage.getItem('rol') === 'admin';
+    const usuarioString = localStorage.getItem('usuario');
+    if (usuarioString) {
+      try {
+        const usuario = JSON.parse(usuarioString);
+        return usuario?.rol === 'admin';
+      } catch (e) {
+        console.error('Error decoding user:', e);
+        return false;
+      }
+    }
+    return false;
+  }
+
+  private handleUserRedirect(usuario: any): void {
+    if (usuario.rol === 'admin') {
+      this.router.navigate(['/admin']);
+    } else {
+      this.router.navigate(['/']);
+    }
   }
 }

@@ -11,8 +11,6 @@ import { AdminUsuariosComponent } from './admin/admin-usuarios/admin-usuarios.co
 import { AdminEstadisticasComponent } from './admin/admin-estadisticas/admin-estadisticas.component';
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
 import { AdminMenuComponent } from './admin/admin-menu/admin-menu.component';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
 import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
@@ -21,14 +19,13 @@ const routes: Routes = [
   { path: 'beterwere', component: BeterwereComponent },
   { path: 'carrito', component: CarritoComponent },
   { path: 'perfil', component: PerfilComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
   {
     path: 'admin', component: AdminDashboardComponent, canActivate: [AuthGuard],
     children: [
       { path: 'menu', component: AdminMenuComponent },
       { path: 'pedidos', component: AdminPedidosComponent },
       { path: 'productos', component: AdminProductosComponent },
+      { path: 'productos/nuevo', component: AdminProductosComponent },
       { path: 'usuarios', component: AdminUsuariosComponent },
       { path: 'estadisticas', component: AdminEstadisticasComponent }
     ]

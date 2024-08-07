@@ -10,26 +10,16 @@ import { CarritoComponent } from './carrito/carrito.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { HttpClientModule } from '@angular/common/http';
 import { PedidosComponent } from './pedidos/pedidos.component';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AuthInterceptor } from './auth.interceptor';
-import { FormsModule } from '@angular/forms';
-
-//Servicios de Inicio
-import { OfertaService } from './oferta.service';
-
-//componentes del administrador
 import { AdminPedidosComponent } from './admin/admin-pedidos/admin-pedidos.component';
 import { AdminProductosComponent } from './admin/admin-productos/admin-productos.component';
 import { AdminUsuariosComponent } from './admin/admin-usuarios/admin-usuarios.component';
 import { AdminEstadisticasComponent } from './admin/admin-estadisticas/admin-estadisticas.component';
-import { AdminMenuComponent } from './admin/admin-menu/admin-menu.component';
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
-
-//servicios del administrador
-
-import { AdminService } from './admin.service';
+import { AdminMenuComponent } from './admin/admin-menu/admin-menu.component'; // Agregar este
+import { FormsModule } from '@angular/forms';
+import { AuthGuard } from './auth.guard';
+import { AuthService } from './auth.service';
+import { OfertaService } from './oferta.service';
 
 @NgModule({
   declarations: [
@@ -44,10 +34,8 @@ import { AdminService } from './admin.service';
     AdminProductosComponent,
     AdminUsuariosComponent,
     AdminEstadisticasComponent,
-    LoginComponent,
-    RegisterComponent,
-    AdminMenuComponent,
-    AdminDashboardComponent
+    AdminDashboardComponent,
+    AdminMenuComponent
   ],
   imports: [
     BrowserModule,
@@ -57,9 +45,9 @@ import { AdminService } from './admin.service';
     FormsModule
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    AuthService,
     OfertaService,
-    AdminService
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })

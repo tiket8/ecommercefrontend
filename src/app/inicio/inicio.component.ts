@@ -27,7 +27,7 @@ export class InicioComponent implements OnInit {
   showLogin = false;
   showRegister = false;
   validationErrors: any = {};
-  ofertas: any[] = []; // Define la propiedad 'ofertas' como un arreglo
+  ofertas: any[] = [];
 
   constructor(
     private authService: AuthService,
@@ -36,7 +36,7 @@ export class InicioComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.obtenerOfertas(); // Llama al método para obtener las ofertas cuando el componente se inicialice
+    this.obtenerOfertas();
   }
 
   toggleLogin(): void {
@@ -52,7 +52,7 @@ export class InicioComponent implements OnInit {
   onLoginSubmit(): void {
     this.authService.login(this.loginData).subscribe(response => {
       localStorage.setItem('token', response.token);
-      this.router.navigate(['/']);
+      this.router.navigate(['/admin']);
     }, error => {
       console.error('Error en el inicio de sesión', error);
     });
@@ -61,7 +61,7 @@ export class InicioComponent implements OnInit {
   onRegisterSubmit(): void {
     this.authService.register(this.registerData).subscribe(response => {
       localStorage.setItem('token', response.token);
-      this.router.navigate(['/']);
+      this.router.navigate(['/admin']);
     }, error => {
       if (error.status === 422) {
         this.validationErrors = error.error.errors;
@@ -73,7 +73,7 @@ export class InicioComponent implements OnInit {
 
   obtenerOfertas(): void {
     this.ofertaService.getOfertas().subscribe(response => {
-      this.ofertas = response; // Asigna la respuesta a la propiedad 'ofertas'
+      this.ofertas = response;
     }, error => {
       console.error('Error al obtener las ofertas', error);
     });
