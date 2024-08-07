@@ -6,6 +6,7 @@ import { tap } from 'rxjs/operators';
 
 interface AuthResponse {
   token: string;
+  user: { rol: string }; // Asumiendo que la API devuelve el rol del usuario
 }
 
 @Injectable({
@@ -20,8 +21,14 @@ export class AuthService {
     return this.http.post<AuthResponse>(`${this.apiUrl}/login`, credentials).pipe(
       tap(response => {
         localStorage.setItem('token', response.token);
-        // Asumimos que si recibes un token, la autenticación es exitosa y redirigimos al usuario
-        this.router.navigate(['/admin']);
+        // Almacena el rol del usuario
+        localStorage.setItem('rol', response.user.rol);
+        // Redirige según el rol del usuario
+        if (response.user.rol === 'admin') {
+          this.router.navigate(['/admin']);
+        } else {
+          this.router.navigate(['/']);
+        }
       })
     );
   }
@@ -32,6 +39,7 @@ export class AuthService {
 
   logout(): void {
     localStorage.removeItem('token');
+    localStorage.removeItem('rol'); // Eliminar también el rol
     this.router.navigate(['/login']);
   }
 
@@ -40,7 +48,6 @@ export class AuthService {
   }
 
   isAdmin(): boolean {
-    // Si necesitas saber si es admin, deberás hacerlo basado en otro endpoint o guardando más información del usuario
-    return true;
+    return localStorage.getItem('rol') === 'admin';
   }
 }
