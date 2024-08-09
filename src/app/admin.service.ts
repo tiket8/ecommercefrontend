@@ -25,15 +25,15 @@ export class AdminService {
 
   // Productos
   obtenerProductos(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/admin/productos`);
+    return this.http.get(`${this.apiUrl}/productos`);
   }
-
+  
   agregarProducto(data: FormData): Observable<any> {
-    return this.http.post(`${this.apiUrl}/admin/productos`, data);
+    return this.http.post(`${this.apiUrl}/productos`, data);
   }
-
+  
   desactivarProducto(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/admin/productos/${id}`);
+    return this.http.delete(`${this.apiUrl}/productos/${id}`);
   }
 
   // Usuarios
