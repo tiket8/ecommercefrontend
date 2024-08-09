@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -10,43 +10,53 @@ export class AdminService {
 
   constructor(private http: HttpClient) {}
 
+  // Método para obtener los encabezados de autenticación
+  private getAuthHeaders(): { headers: HttpHeaders } {
+    const token = localStorage.getItem('token');  // Obtener el token desde localStorage
+    return {
+      headers: new HttpHeaders({
+        'Authorization': `Bearer ${token}`
+      })
+    };
+  }
+
   // Pedidos
   getPedidos(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/pedidos`);
+    return this.http.get<any[]>(`${this.apiUrl}/pedidos`, this.getAuthHeaders());
   }
 
   getPedido(id: string): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/pedidos/${id}`);
+    return this.http.get<any>(`${this.apiUrl}/pedidos/${id}`, this.getAuthHeaders());
   }
 
   updatePedido(id: string, estado: string): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/pedidos/${id}`, { estado });
+    return this.http.put<any>(`${this.apiUrl}/pedidos/${id}`, { estado }, this.getAuthHeaders());
   }
 
   // Productos
   obtenerProductos(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/productos`);
+    return this.http.get(`${this.apiUrl}/productos`, this.getAuthHeaders());
   }
-  
+
   agregarProducto(data: FormData): Observable<any> {
-    return this.http.post(`${this.apiUrl}/productos`, data);
+    return this.http.post(`${this.apiUrl}/productos`, data, this.getAuthHeaders());
   }
-  
+
   desactivarProducto(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/productos/${id}`);
+    return this.http.delete(`${this.apiUrl}/productos/${id}`, this.getAuthHeaders());
   }
 
   // Usuarios
   getUsuarios(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/usuarios`);
+    return this.http.get<any[]>(`${this.apiUrl}/usuarios`, this.getAuthHeaders());
   }
 
   deleteUsuario(id: string): Observable<any> {
-    return this.http.delete<any>(`${this.apiUrl}/usuarios/${id}`);
+    return this.http.delete<any>(`${this.apiUrl}/usuarios/${id}`, this.getAuthHeaders());
   }
 
   // Estadísticas
   getEstadisticas(): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/estadisticas`);
+    return this.http.get<any>(`${this.apiUrl}/estadisticas`, this.getAuthHeaders());
   }
 }
