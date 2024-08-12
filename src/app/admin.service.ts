@@ -46,6 +46,10 @@ export class AdminService {
     return this.http.delete(`${this.apiUrl}/productos/${id}`, this.getAuthHeaders());
   }
 
+  updateProducto(id: number, data: FormData): Observable<any> {
+    return this.http.put(`${this.apiUrl}/productos/${id}`, data, this.getAuthHeaders());
+  }
+
   // Usuarios
   getUsuarios(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/usuarios`, this.getAuthHeaders());

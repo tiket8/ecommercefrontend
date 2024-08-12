@@ -10,6 +10,8 @@ import { AdminService } from '../../admin.service';
 export class AdminProductosComponent implements OnInit {
   productos: any[] = [];
   mostrarFormulario: boolean = false;
+  productoSeleccionado: any = null; 
+  
   nuevoProducto = {
     nombre: '',
     descripcion: '',
@@ -68,5 +70,34 @@ export class AdminProductosComponent implements OnInit {
     }, error => {
       console.error('Error al desactivar producto', error);
     });
+  }
+  editarProducto(producto: any) {
+    this.productoSeleccionado = { ...producto }; // Clonar el producto seleccionado
+    this.mostrarFormulario = false; // Ocultar el formulario de nuevo producto
+  }
+  
+  actualizarProducto() {
+    const formData = new FormData();
+    formData.append('nombre', this.productoSeleccionado.nombre);
+    formData.append('descripcion', this.productoSeleccionado.descripcion);
+    formData.append('precio', this.productoSeleccionado.precio.toString());
+    formData.append('cantidad', this.productoSeleccionado.cantidad.toString());
+    formData.append('categoria', this.productoSeleccionado.categoria);
+    formData.append('estado', this.productoSeleccionado.estado ? '1' : '0');
+    formData.append('oferta', this.productoSeleccionado.oferta ? '1' : '0');
+    if (this.productoSeleccionado.foto instanceof File) {
+      formData.append('foto', this.productoSeleccionado.foto);
+    }
+  
+    this.adminService.updateProducto(this.productoSeleccionado.id, formData).subscribe(response => {
+      this.obtenerProductos(); // Actualizar la lista de productos
+      this.productoSeleccionado = null; // Limpiar la selección después de guardar
+    }, error => {
+      console.error('Error al actualizar producto', error);
+    });
+  }
+  
+  cancelarEdicion() {
+    this.productoSeleccionado = null; // Limpiar la selección y cerrar el formulario
   }
 }

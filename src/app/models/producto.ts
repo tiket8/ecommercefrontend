@@ -8,5 +8,8 @@ export interface Producto {
     oferta: boolean;
     foto: string;
     estado: boolean;
+
+    
   }
+  
   
