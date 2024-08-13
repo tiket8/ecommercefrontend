@@ -29,6 +29,10 @@
         </select>
       </div>
       <div class="form-group">
+        <label for="codigo">Código</label>
+        <input type="text" id="codigo" [(ngModel)]="nuevoProducto.codigo" name="codigo" class="form-control">
+    </div>
+      <div class="form-group">
         <label for="estado">Estado</label>
         <input type="checkbox" id="estado" [(ngModel)]="nuevoProducto.estado" name="estado" class="form-check-input">
       </div>
@@ -47,7 +51,7 @@
   <table class="table mt-3">
     <thead>
       <tr>
-        <th>ID</th>
+        <th>Codigo</th>
         <th>Nombre</th>
         <th>Descripción</th>
         <th>Precio</th>
@@ -59,7 +63,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let producto of productos">
-        <td>{{ producto.id }}</td>
+        <td>{{ producto.codigo }}</td>
         <td>{{ producto.nombre }}</td>
         <td>{{ producto.descripcion }}</td>
         <td>{{ producto.precio }}</td>
@@ -68,6 +72,7 @@
         <td>{{ producto.estado ? 'Activo' : 'Inactivo' }}</td>
         <td>
           <button (click)="editarProducto(producto)" class="btn btn-info btn-sm">Editar</button>
+          <button (click)="desactivarProducto(producto.id)" class="btn btn-warning btn-sm ml-2">Desactivar</button>
         </td>
       </tr>
     </tbody>
@@ -94,12 +99,16 @@
         <input type="number" id="cantidad" [(ngModel)]="productoSeleccionado.cantidad" name="cantidad" class="form-control" required>
       </div>
       <div class="form-group">
+        <label for="codigo">Código</label>
+        <input type="text" id="codigo" [(ngModel)]="productoSeleccionado.codigo" name="codigo" class="form-control">
+    </div>   
+      <div class="form-group">
         <label for="categoria">Categoría</label>
         <select id="categoria" [(ngModel)]="productoSeleccionado.categoria" name="categoria" class="form-control" required>
           <option value="electronica">Electrónica</option>
           <option value="beterwere">Beterwere</option>
         </select>
-      </div>
+      </div> 
       <div class="form-group">
         <label for="estado">Estado</label>
         <input type="checkbox" id="estado" [(ngModel)]="productoSeleccionado.estado" name="estado" class="form-check-input">

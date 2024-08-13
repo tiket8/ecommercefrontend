@@ -20,7 +20,8 @@ export class AdminProductosComponent implements OnInit {
     categoria: 'electronica',
     estado: true,
     oferta: false,
-    foto: null
+    foto: null,
+    codigo: ''
   };
 
   constructor(private adminService: AdminService, private router: Router) {}
@@ -43,8 +44,10 @@ export class AdminProductosComponent implements OnInit {
     formData.append('precio', this.nuevoProducto.precio.toString());
     formData.append('cantidad', this.nuevoProducto.cantidad.toString());
     formData.append('categoria', this.nuevoProducto.categoria);
-    formData.append('estado', this.nuevoProducto.estado.toString());
+    formData.append('estado', this.nuevoProducto.oferta ? '1' : '0');
     formData.append('oferta', this.nuevoProducto.oferta ? '1' : '0');
+    formData.append('codigo', this.nuevoProducto.codigo.toString());
+
     if (this.nuevoProducto.foto) {
       formData.append('foto', this.nuevoProducto.foto);
     }
@@ -85,6 +88,8 @@ export class AdminProductosComponent implements OnInit {
     formData.append('categoria', this.productoSeleccionado.categoria);
     formData.append('estado', this.productoSeleccionado.estado ? '1' : '0');
     formData.append('oferta', this.productoSeleccionado.oferta ? '1' : '0');
+    formData.append('codigo', this.nuevoProducto.codigo.toString());
+    
     if (this.productoSeleccionado.foto instanceof File) {
       formData.append('foto', this.productoSeleccionado.foto);
     }
