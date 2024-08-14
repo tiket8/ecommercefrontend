@@ -6,19 +6,19 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class CarritoService {
-  private apiUrl = 'http://localhost:8000/api/carrito';
+  private apiUrl = 'http://localhost:8000/api';
 
   constructor(private http: HttpClient) {}
 
-  agregarProducto(productoId: number, cantidad: number): Observable<any> {
-    return this.http.post<any>(this.apiUrl + '/agregar', { productoId, cantidad });
+  obtenerCarrito(categoria: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/carrito/${categoria}`);
   }
 
-  obtenerCarrito(): Observable<any> {
-    return this.http.get<any>(this.apiUrl);
+  agregarProductoAlCarrito(producto_id: number, cantidad: number): Observable<any> {
+    return this.http.post(`${this.apiUrl}/carrito`, { producto_id, cantidad });
   }
 
-  eliminarProducto(productoId: number): Observable<any> {
-    return this.http.delete<any>(this.apiUrl + '/eliminar/' + productoId);
+  eliminarProductoDelCarrito(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/carrito/${id}`);
   }
 }

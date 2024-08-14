@@ -5,6 +5,7 @@ import { ElectronicaComponent } from './electronica/electronica.component';
 import { BeterwereComponent } from './beterwere/beterwere.component';
 import { CarritoComponent } from './carrito/carrito.component';
 import { PerfilComponent } from './perfil/perfil.component';
+import { PedidosComponent } from './pedidos/pedidos.component';
 import { AdminPedidosComponent } from './admin/admin-pedidos/admin-pedidos.component';
 import { AdminProductosComponent } from './admin/admin-productos/admin-productos.component';
 import { AdminUsuariosComponent } from './admin/admin-usuarios/admin-usuarios.component';
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path: 'beterwere', component: BeterwereComponent },
   { path: 'carrito', component: CarritoComponent },
   { path: 'perfil', component: PerfilComponent },
+  { path: 'pedidos', component: PedidosComponent },
   {
     path: 'admin', component: AdminDashboardComponent, canActivate: [AuthGuard],
     children: [

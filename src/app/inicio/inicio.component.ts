@@ -26,6 +26,7 @@ export class InicioComponent implements OnInit {
 
   showLogin = false;
   showRegister = false;
+  showClientMenu = false;
   validationErrors: any = {};
   ofertas: any[] = [];
 
@@ -36,7 +37,8 @@ export class InicioComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.obtenerOfertas();
+    this.obtenerOfertas();//obtiene los productos registrados como ofertas
+    this.showClientMenu = this.authService.isLoggedIn() && !this.authService.isAdmin();//verifica si el usuario ya esta logueado y no es administrador
   }
 
   toggleLogin(): void {
@@ -52,7 +54,14 @@ export class InicioComponent implements OnInit {
   onLoginSubmit(): void {
     this.authService.login(this.loginData).subscribe(response => {
       localStorage.setItem('token', response.token);
-      this.router.navigate(['/admin']);
+      localStorage.setItem('usuario', JSON.stringify(response.usuario)); // Guarda el usuario
+      
+      if (response.usuario.rol === 'admin') {
+        this.router.navigate(['/admin']);//mostrar opciones admin
+      } else {
+        this.router.navigate(['/']);
+        this.showClientMenu = true; // Mostrar menú de cliente si no es administrador
+      }
     }, error => {
       console.error('Error en el inicio de sesión', error);
     });
