@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class OfertaService {
-  private apiUrl = 'http://localhost:8000/api/ofertas'; // Asegúrate de usar la URL correcta
+  private apiUrl = 'http://localhost:8000/api/ofertas'; // direccion de la api 
 
   constructor(private http: HttpClient) {}
 

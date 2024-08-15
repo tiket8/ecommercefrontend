@@ -87,4 +87,9 @@ export class InicioComponent implements OnInit {
       console.error('Error al obtener las ofertas', error);
     });
   }
+  closeModal(event: Event): void {
+    // Cierra las ventanas modales si el clic no es dentro del formulario
+    this.showLogin = false;
+    this.showRegister = false;
+  }
 }

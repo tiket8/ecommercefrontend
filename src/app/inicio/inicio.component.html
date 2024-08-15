@@ -6,6 +6,7 @@
     </div>
   </div>
 
+  <!-- Botones para iniciar sesión y registrarse -->
   <div class="row">
     <div class="col-12 text-center">
       <button (click)="toggleLogin()" class="btn btn-primary m-2">Iniciar Sesión</button>
@@ -13,110 +14,79 @@
     </div>
   </div>
 
-  <div class="row mt-5" *ngIf="showLogin">
-    <div class="col-12">
-      <h2>Iniciar Sesión</h2>
-      <form (submit)="onLoginSubmit()">
-        <div class="form-group">
-          <label for="loginEmail">Email</label>
-          <input type="email" class="form-control" id="loginEmail" [(ngModel)]="loginData.email" name="loginEmail" required>
-        </div>
-        <div class="form-group">
-          <label for="loginPassword">Contraseña</label>
-          <input type="password" class="form-control" id="loginPassword" [(ngModel)]="loginData.password" name="loginPassword" required>
-        </div>
-        <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
-      </form>
-    </div>
-  </div>
-
-  <div class="row mt-5" *ngIf="showRegister">
-    <div class="col-12">
-      <h2>Registro</h2>
-      <form (submit)="onRegisterSubmit()">
-        <div class="form-group">
-          <label for="registerNombre">Nombre</label>
-          <input type="text" class="form-control" id="registerNombre" [(ngModel)]="registerData.nombre" name="registerNombre" required>
-          <div *ngIf="validationErrors?.nombre" class="alert alert-danger">
-            {{ validationErrors.nombre[0] }}
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="registerDireccion">Dirección</label>
-          <input type="text" class="form-control" id="registerDireccion" [(ngModel)]="registerData.direccion" name="registerDireccion">
-          <div *ngIf="validationErrors?.direccion" class="alert alert-danger">
-            {{ validationErrors.direccion[0] }}
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="registerTelefono">Teléfono</label>
-          <input type="text" class="form-control" id="registerTelefono" [(ngModel)]="registerData.telefono" name="registerTelefono">
-          <div *ngIf="validationErrors?.telefono" class="alert alert-danger">
-            {{ validationErrors.telefono[0] }}
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="registerCelular">Celular</label>
-          <input type="text" class="form-control" id="registerCelular" [(ngModel)]="registerData.celular" name="registerCelular">
-          <div *ngIf="validationErrors?.celular" class="alert alert-danger">
-            {{ validationErrors.celular[0] }}
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="registerEmail">Email</label>
-          <input type="email" class="form-control" id="registerEmail" [(ngModel)]="registerData.email" name="registerEmail" required>
-          <div *ngIf="validationErrors?.email" class="alert alert-danger">
-            {{ validationErrors.email[0] }}
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="registerPassword">Contraseña</label>
-          <input type="password" class="form-control" id="registerPassword" [(ngModel)]="registerData.password" name="registerPassword" required>
-          <div *ngIf="validationErrors?.password" class="alert alert-danger">
-            {{ validationErrors.password[0] }}
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="registerPasswordConfirmation">Confirmar Contraseña</label>
-          <input type="password" class="form-control" id="registerPasswordConfirmation" [(ngModel)]="registerData.password_confirmation" name="registerPasswordConfirmation" required>
-          <div *ngIf="validationErrors?.password_confirmation" class="alert alert-danger">
-            {{ validationErrors.password_confirmation[0] }}
-          </div>
-        </div>
-        <button type="submit" class="btn btn-primary">Registrarse</button>
-      </form>
-    </div>
-  </div>
-
-  <div class="row mt-5">
-    <div class="col-6 text-center">
-      <a routerLink="/electronica" class="btn btn-info btn-lg">Productos de Electrónica</a>
-    </div>
-    <div class="col-6 text-center">
-      <a routerLink="/beterwere" class="btn btn-success btn-lg">Productos de Beterwere</a>
-    </div>
-  </div>
-
-  <div class="row mt-5">
-    <div class="col-12">
-      <h2>Ofertas</h2>
-      <div class="row">
-        <!-- Aquí se listarán las ofertas -->
-        <div class="col-md-4" *ngFor="let oferta of ofertas">
-          <div class="card mb-4">
-            <img [src]="'http://localhost:8000/storage/' + oferta.foto" alt="Imagen del producto">
-            <div class="card-body">
-              <h5 class="card-title">{{ oferta.nombre }}</h5>
-              <p class="card-text">{{ oferta.descripcion }}</p>
-              <p class="card-text"><strong>{{ oferta.precio | currency }}</strong></p>
-              <a [routerLink]="['/producto', oferta.id]" class="btn btn-primary">Ver más</a>
+  <!-- Ventana flotante para iniciar sesión, se agrego evento close modal para cerrar ventana una vez que el usuario de click afuera -->
+  <div *ngIf="showLogin" (click)="closeModal($event)" class="modal-overlay">
+    <form (click)="$event.stopPropagation()" (submit)="onLoginSubmit()" class="container">
+      <div class="input-container">
+        <div class="input-content">
+          <div class="input-dist">
+            <div class="input-type">
+              <input class="input-is" type="email" required placeholder="Email" id="loginEmail" [(ngModel)]="loginData.email" name="email" />
+              <input class="input-is" type="password" required placeholder="Password" id="loginPassword" [(ngModel)]="loginData.password" name="password" />
             </div>
+          </div>
+        </div>
+      </div>
+      <button class="submit-button">Iniciar Sesion</button>
+    </form>
+  </div>
+
+  <!-- Ventana flotante para registro, se agrego el evento close modal para crerrar ventana cuando se de click afuera -->
+  <div *ngIf="showRegister" (click)="closeModal($event)" class="modal-overlay">
+    <form (click)="$event.stopPropagation()" (submit)="onRegisterSubmit()" class="container">
+      <div class="input-container">
+        <div class="input-content">
+          <div class="input-dist">
+            <div class="input-type">
+              <input class="input-is" type="text" required placeholder="Nombre" [(ngModel)]="registerData.nombre" name="nombre" />
+              
+              <!-- campo para Dirección -->
+              <input class="input-is" type="text" placeholder="Dirección" [(ngModel)]="registerData.direccion" name="direccion" />
+  
+              <!-- campo para Teléfono -->
+              <input class="input-is" type="text" placeholder="Teléfono" [(ngModel)]="registerData.telefono" name="telefono" />
+  
+              <!-- campo para Celular -->
+              <input class="input-is" type="text" placeholder="Celular" [(ngModel)]="registerData.celular" name="celular" />
+              
+              <input class="input-is" type="email" required placeholder="Email" [(ngModel)]="registerData.email" name="email" />
+              <input class="input-is" type="password" required placeholder="Password" [(ngModel)]="registerData.password" name="password" />
+              <input class="input-is" type="password" required placeholder="Confirmar Password" [(ngModel)]="registerData.password_confirmation" name="password_confirmation" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="submit-button">Registrarse</button>
+    </form>
+  </div>
+
+  <!-- Sección de ofertas -->
+  <div class="row mt-5">
+    <div class="col-12 text-center">
+      <h2>Ofertas</h2>
+    </div>
+  
+    <div class="row">
+      <div class="col-md-4" *ngFor="let oferta of ofertas">
+        <div class="card">
+          <div class="image_container">
+            <img [src]="'http://localhost:8000/storage/' + oferta.foto" alt="Imagen del producto" class="image">
+          </div>
+          <div class="card-body">
+            <h5 class="title">{{ oferta.nombre }}</h5>
+            <p class="size">{{ oferta.descripcion }}</p>
+            <div class="action">
+              <p class="price">{{ oferta.precio | currency }}</p>
+            </div>
+            <a [routerLink]="['/producto', oferta.id]" class="cart-button">Ver más</a>
           </div>
         </div>
       </div>
     </div>
   </div>
+  
 
+  <!-- Footer -->
   <footer class="mt-5">
     <div class="row">
       <div class="col-12 text-center">
