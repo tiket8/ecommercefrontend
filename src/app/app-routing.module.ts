@@ -11,7 +11,6 @@ import { AdminProductosComponent } from './admin/admin-productos/admin-productos
 import { AdminUsuariosComponent } from './admin/admin-usuarios/admin-usuarios.component';
 import { AdminEstadisticasComponent } from './admin/admin-estadisticas/admin-estadisticas.component';
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
-import { AdminMenuComponent } from './admin/admin-menu/admin-menu.component';
 import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
@@ -24,7 +23,6 @@ const routes: Routes = [
   {
     path: 'admin', component: AdminDashboardComponent, canActivate: [AuthGuard],
     children: [
-      { path: 'menu', component: AdminMenuComponent },
       { path: 'pedidos', component: AdminPedidosComponent },
       { path: 'productos', component: AdminProductosComponent },
       { path: 'productos/nuevo', component: AdminProductosComponent },

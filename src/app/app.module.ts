@@ -15,7 +15,6 @@ import { AdminProductosComponent } from './admin/admin-productos/admin-productos
 import { AdminUsuariosComponent } from './admin/admin-usuarios/admin-usuarios.component';
 import { AdminEstadisticasComponent } from './admin/admin-estadisticas/admin-estadisticas.component';
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
-import { AdminMenuComponent } from './admin/admin-menu/admin-menu.component'; // Agregar este
 import { FormsModule } from '@angular/forms';
 import { AuthGuard } from './auth.guard';
 import { AuthService } from './auth.service';
@@ -35,7 +34,6 @@ import { OfertaService } from './oferta.service';
     AdminUsuariosComponent,
     AdminEstadisticasComponent,
     AdminDashboardComponent,
-    AdminMenuComponent
   ],
   imports: [
     BrowserModule,
