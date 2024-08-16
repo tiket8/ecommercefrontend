@@ -1,0 +1,84 @@
+.container {
+    margin-top: calc(80px + 20px); /*  altura de tu navbar */
+  }
+
+table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+  }
+  
+  h1 {
+    text-align: center;
+  }
+  
+  th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  th {
+    background-color: #333;
+    color: white;
+  }
+  .main-content {
+    margin-top: 120px; /* Ajusta este valor según la altura de tu navbar */
+  }
+
+  /*estilo de botones*/
+
+  .custom-button {
+    font-size: 1rem;
+    font-weight: bold;
+    color: var(--light); /* Color de texto claro */
+    background: var(--primary-800); /* Color de fondo */
+    padding: 0.75rem 2rem;
+    border-radius: 0.5rem;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    text-transform: uppercase;
+  }
+  
+  /* Efecto hover */
+  .btn-primary:hover {
+    background-color: var(--primary); /* Cambia el fondo a un tono más claro al hacer hover */
+    box-shadow: 0 0 10px #6d28d9; /* Agrega una sombra */
+    transform: scale(1.05); /* Aumenta ligeramente el tamaño */
+  }
+  
+  /* Botón primario (Iniciar Sesión) */
+  .btn-primary {
+    background-color: var(--primary) !important;
+    font-size: 1rem;
+    font-weight: bold;
+    color: var(--light); /* Color de texto claro */
+    background: var(--primary-800); /* Color de fondo */
+    padding: 0.75rem 2rem;
+    border-radius: 0.5rem;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    text-transform: uppercase; /* Color principal para botón de "Iniciar Sesión" */
+  }
+  
+  /* Botón secundario (Registrarse) */
+  .btn-secondary {
+    background-color: var(--primary-800); /* Color más oscuro para botón de "Registrarse" */
+    color: var(--light); /* Asegura que el texto siga siendo visible */
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 0.75rem 2rem;
+    border-radius: 0.5rem;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    text-transform: uppercase;
+  }
+  
+  .btn-secondary:hover {
+    background-color: var(--primary); /* Cambia el fondo a un tono más claro al hacer hover */
+    box-shadow: 0 0 10px #6d28d9; /* Agrega una sombra */
+    transform: scale(1.05);
+  }

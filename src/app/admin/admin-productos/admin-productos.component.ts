@@ -54,9 +54,11 @@ export class AdminProductosComponent implements OnInit {
 
     this.adminService.agregarProducto(formData).subscribe(response => {
       this.router.navigate(['/admin/productos']);
+      this.obtenerProductos(); // Actualiza la lista de productos
+      this.mostrarFormulario = false; // Cierra el formulario de agregar producto
     }, error => {
       console.error('Error al agregar producto', error);
-    });
+    });    
   }
 
   obtenerProductos() {
@@ -105,4 +107,5 @@ export class AdminProductosComponent implements OnInit {
   cancelarEdicion() {
     this.productoSeleccionado = null; // Limpiar la selección y cerrar el formulario
   }
+  
 }

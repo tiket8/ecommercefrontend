@@ -1,6 +1,6 @@
 <div class="container">
   <h1>Gestión de Productos</h1>
-  <button (click)="mostrarFormulario = !mostrarFormulario" class="btn btn-primary">Agregar Producto</button>
+  <button (click)="mostrarFormulario = !mostrarFormulario" class="btn-primary custom-button">Agregar Producto</button>
 
   <div *ngIf="mostrarFormulario" class="mt-3">
     <h2>Agregar Producto</h2>
@@ -44,7 +44,7 @@
         <label for="foto">Foto</label>
         <input type="file" id="foto" (change)="onFileChange($event)" name="foto" class="form-control">
       </div>
-      <button type="submit" class="btn btn-primary">Guardar</button>
+      <button type="submit" class="btn-primary custom-button">Guardar</button>
     </form>
   </div>
 
@@ -121,8 +121,8 @@
         <label for="foto">Foto</label>
         <input type="file" id="foto" (change)="onFileChange($event)" name="foto" class="form-control">
       </div>
-      <button type="submit" class="btn btn-primary">Guardar Cambios</button>
-      <button type="button" (click)="cancelarEdicion()" class="btn btn-secondary">Cancelar</button>
+      <button type="submit" class="btn-primary custom-button">Guardar Cambios</button>
+      <button type="button" (click)="cancelarEdicion()" class="btn-secondary custom-button">Cancelar</button>
     </form>
   </div>
 </div>
