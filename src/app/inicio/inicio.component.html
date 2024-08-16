@@ -1,4 +1,4 @@
-<div class="container mt-5">
+<div class="main-content container mt-5">
   <div class="row">
     <div class="col-12 text-center">
       <h1>Bienvenido a GPETRONIC</h1>
@@ -16,7 +16,7 @@
 
   <!-- Ventana flotante para iniciar sesión, se agrego evento close modal para cerrar ventana una vez que el usuario de click afuera -->
   <div *ngIf="showLogin" (click)="closeModal($event)" class="modal-overlay">
-    <form (click)="$event.stopPropagation()" (submit)="onLoginSubmit()" class="container">
+    <form (click)="$event.stopPropagation()" (submit)="onLoginSubmit()" class="login-register-container">
       <div class="input-container">
         <div class="input-content">
           <div class="input-dist">
@@ -33,7 +33,7 @@
 
   <!-- Ventana flotante para registro, se agrego el evento close modal para crerrar ventana cuando se de click afuera -->
   <div *ngIf="showRegister" (click)="closeModal($event)" class="modal-overlay">
-    <form (click)="$event.stopPropagation()" (submit)="onRegisterSubmit()" class="container">
+    <form (click)="$event.stopPropagation()" (submit)="onRegisterSubmit()" class="login-register-container">
       <div class="input-container">
         <div class="input-content">
           <div class="input-dist">
@@ -91,7 +91,7 @@
     <div class="row">
       <div class="col-12 text-center">
         <p>&copy; 2024 GPETRONIC. Todos los derechos reservados.</p>
-        <p>Contacto: "contacto"&#64;"gpetronic.com" | Tel: +123 456 7890</p>
+        <p>Contacto: "contacto&#64;gpetronic.com" | Tel: +123 456 7890</p>
       </div>
     </div>
   </footer>

@@ -6,6 +6,7 @@ import { AuthService } from './auth.service';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
+
 export class AppComponent {
   title = 'ecommercefrontend';
   constructor(public authService: AuthService) {}
@@ -17,4 +18,11 @@ export class AppComponent {
   isAdmin(): boolean {
     return this.authService.isAdmin();
   }
+   // Propiedad para controlar la visibilidad del menú
+   menuVisible: boolean = false;
+
+   // Método para alternar la visibilidad del menú
+   toggleMenu(): void {
+     this.menuVisible = !this.menuVisible;
+   }
 }

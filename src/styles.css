@@ -14,12 +14,12 @@
     color: hsl(192, 100%, 88%);
   }
   
-  .container {
+  .centered-container {
     display: flex;
     justify-content: center;
     align-items: center;
   }
-  
+    
   .button {
     background: linear-gradient(
       90deg,
