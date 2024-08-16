@@ -1,4 +1,61 @@
-/* From Uiverse.io by MijailVillegas */ 
+/* Estilos para los botones del componente de inicio */
+
+.custom-button {
+  font-size: 1rem;
+  font-weight: bold;
+  color: var(--light); /* Color de texto claro */
+  background: var(--primary-800); /* Color de fondo */
+  padding: 0.75rem 2rem;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  text-transform: uppercase;
+}
+
+/* Efecto hover */
+.btn-primary:hover {
+  background-color: var(--primary); /* Cambia el fondo a un tono más claro al hacer hover */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Agrega una sombra */
+  transform: scale(1.05); /* Aumenta ligeramente el tamaño */
+}
+
+/* Botón primario (Iniciar Sesión) */
+.btn-primary{
+  background-color: var(--primary) !important;
+  font-size: 1rem;
+  font-weight: bold;
+  color: var(--light); /* Color de texto claro */
+  background: var(--primary-800); /* Color de fondo */
+  padding: 0.75rem 2rem;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  text-transform: uppercase; /* Color principal para botón de "Iniciar Sesión" */
+}
+
+/* Botón secundario (Registrarse) */
+.btn-secondary{
+  background-color: var(--primary-800); /* Color más oscuro para botón de "Registrarse" */
+  color: var(--light); /* Asegura que el texto siga siendo visible */
+  font-size: 1rem;
+  font-weight: bold;
+  color: var(--light); /* Color de texto claro */
+  background: var(--primary-800); /* Color de fondo */
+  padding: 0.75rem 2rem;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  text-transform: uppercase;
+}
+
+.btn-secondary:hover {
+  background-color: var(--primary); /* Cambia el fondo a un tono más claro al hacer hover */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Agrega una sombra */
+  transform: scale(1.05); 
+}
 /*estilos para el login y registro */
 
 .login-register-container {
@@ -7,7 +64,7 @@
   font-weight: bold;
   display: flex;
   margin: auto;
-  aspect-ratio: 16/9;
+  aspect-ratio: 16/5;
   align-items: center;
   justify-items: center;
   justify-content: center;

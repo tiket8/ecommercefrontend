@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AdminService } from '../../admin.service';
+import { AdminService } from '../../services/admin.service';
 
 @Component({
   selector: 'app-admin-usuarios',
@@ -8,18 +8,28 @@ import { AdminService } from '../../admin.service';
 })
 export class AdminUsuariosComponent implements OnInit {
   usuarios: any[] = [];
+  filtro: string = '';
 
   constructor(private adminService: AdminService) {}
 
   ngOnInit(): void {
-    this.adminService.getUsuarios().subscribe(data => {
+    this.cargarUsuarios();
+  }
+
+  cargarUsuarios(): void {
+    this.adminService.obtenerUsuarios().subscribe(data => {
       this.usuarios = data;
     });
   }
 
-  deleteUsuario(id: string): void {
-    this.adminService.deleteUsuario(id).subscribe(response => {
-      this.usuarios = this.usuarios.filter(u => u.id !== id);
+  desactivarUsuario(id: string): void {
+    this.adminService.desactivarUsuario(id).subscribe(() => {
+      this.cargarUsuarios(); // Refrescar la lista después de desactivar
+    });
+  }
+  activarUsuario(id: string): void {
+    this.adminService.activarUsuario(id).subscribe(() => {
+      this.cargarUsuarios(); // Refrescar lista de usuarios
     });
   }
 }

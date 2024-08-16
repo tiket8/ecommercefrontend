@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AdminService {
+  
   private apiUrl = 'http://localhost:8000/api/admin';
 
   constructor(private http: HttpClient) {}
@@ -50,16 +51,26 @@ export class AdminService {
     return this.http.put(`${this.apiUrl}/productos/${id}`, data, this.getAuthHeaders());
   }
 
-  // Usuarios
-  getUsuarios(): Observable<any[]> {
+    // Usuarios
+    
+  // Listar usuarios
+  obtenerUsuarios(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/usuarios`, this.getAuthHeaders());
   }
-
-  deleteUsuario(id: string): Observable<any> {
-    return this.http.delete<any>(`${this.apiUrl}/usuarios/${id}`, this.getAuthHeaders());
+  // Ver detalles de un usuario
+  obtenerUsuario(id: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/usuarios/${id}`, this.getAuthHeaders());
   }
 
-  // Estadísticas
+  // Desactivar usuario
+  desactivarUsuario(id: string): Observable<any> {
+    return this.http.put(`${this.apiUrl}/usuarios/desactivar/${id}`, {}, this.getAuthHeaders());
+  }
+  activarUsuario(id: string): Observable<any> {
+    return this.http.put(`${this.apiUrl}/usuarios/activar/${id}`, {}, this.getAuthHeaders());
+  }
+  
+  //obtener estadisticas 
   getEstadisticas(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/estadisticas`, this.getAuthHeaders());
   }

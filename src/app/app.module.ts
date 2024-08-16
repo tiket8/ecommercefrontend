@@ -18,7 +18,9 @@ import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard
 import { FormsModule } from '@angular/forms';
 import { AuthGuard } from './auth.guard';
 import { AuthService } from './auth.service';
-import { OfertaService } from './oferta.service';
+import { OfertaService } from './services/oferta.service';
+import { AdminService} from './services/admin.service';
+import { FiltroUsuariosPipe } from './filtro-usuarios.pipe';
 
 @NgModule({
   declarations: [
@@ -34,6 +36,7 @@ import { OfertaService } from './oferta.service';
     AdminUsuariosComponent,
     AdminEstadisticasComponent,
     AdminDashboardComponent,
+    FiltroUsuariosPipe,
   ],
   imports: [
     BrowserModule,
@@ -45,7 +48,9 @@ import { OfertaService } from './oferta.service';
   providers: [
     AuthService,
     OfertaService,
-    AuthGuard
+    AuthGuard,
+    AdminService
+
   ],
   bootstrap: [AppComponent]
 })

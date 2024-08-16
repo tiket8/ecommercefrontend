@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductoService } from '../producto.service';
+import { ProductoService } from '../services/producto.service';
 import { Producto } from '../models/producto';
 @Component({
   selector: 'app-electronica',

@@ -20,22 +20,5 @@
     align-items: center;
   }
     
-  .button {
-    background: linear-gradient(
-      90deg,
-      transparent 0%,
-      rgba(102, 224, 255, 0.2) 27%,
-      rgba(102, 224, 255, 0.2) 63%,
-      transparent 100%
-    );
-    padding: 1em;
-    color: hsla(192, 100%, 88%, 0.806);
-    border: none;
-    cursor: pointer;
-    transition: 0.3s;
-  }
   
-  .button:hover {
-    color: hsl(0, 0%, 100%);
-  }
   

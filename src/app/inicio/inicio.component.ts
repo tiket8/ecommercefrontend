@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
-import { OfertaService } from '../oferta.service';
+import { OfertaService } from '../services/oferta.service';
 
 @Component({
   selector: 'app-inicio',
