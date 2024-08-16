@@ -14,6 +14,8 @@
     </div>
   </div>
 
+ 
+
   <!-- Ventana flotante para iniciar sesión, se agrego evento close modal para cerrar ventana una vez que el usuario de click afuera -->
   <div *ngIf="showLogin" (click)="closeModal($event)" class="modal-overlay">
     <form (click)="$event.stopPropagation()" (submit)="onLoginSubmit()" class="login-register-container">
@@ -60,6 +62,7 @@
     </form>
   </div>
 
+
   <!-- Sección de ofertas -->
   <div class="row mt-5">
     <div class="col-12 text-center">
@@ -85,7 +88,21 @@
     </div>
   </div>
   
-
+   <!-- Accesos a los productos de Electrónica y Beterwere -->
+   <div class="row mt-4 access-container">
+    <div class="col-md-6 text-center">
+      <a [routerLink]="['/electronica']">
+        <img src="public/electronica.jpeg" alt="Productos de Electrónica" class="access-image" />
+        <p class="access-title mt-2">Productos de Electrónica</p>
+      </a>
+    </div>
+    <div class="col-md-6 text-center">
+      <a [routerLink]="['/beterwere']">
+        <img src="public/beterwere.jpeg" alt="Productos de Beterwere" class="access-image" />
+        <p class="access-title mt-2">Productos de Beterwere</p>
+      </a>
+    </div>
+  </div>
   <!-- Footer -->
   <footer class="mt-5">
     <div class="row">

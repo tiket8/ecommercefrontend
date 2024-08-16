@@ -16,7 +16,7 @@
 /* Efecto hover */
 .btn-primary:hover {
   background-color: var(--primary); /* Cambia el fondo a un tono más claro al hacer hover */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Agrega una sombra */
+  box-shadow: 0 0 10px #6d28d9; /* Agrega una sombra */
   transform: scale(1.05); /* Aumenta ligeramente el tamaño */
 }
 
@@ -53,7 +53,7 @@
 
 .btn-secondary:hover {
   background-color: var(--primary); /* Cambia el fondo a un tono más claro al hacer hover */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Agrega una sombra */
+  box-shadow: 0 0 10px #6d28d9; /* Agrega una sombra */
   transform: scale(1.05); 
 }
 /*estilos para el login y registro */
@@ -416,4 +416,38 @@
 
 .cart-button .cart-icon {
   width: 1rem;
+}
+
+/*imagenes de acceso a productos */
+.access-image {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  border-radius: 10px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.access-image:hover {
+  transform: scale(1.05); /* Efecto de agrandado al hacer hover */
+}
+
+.access-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--light); /* O el color que prefieras */
+  margin-top: 10px;
+}
+
+a {
+  text-decoration: none; /* Elimina la línea de subrayado del enlace */
+  color: inherit; /* Hereda el color del padre */
+}
+
+a:hover .access-title {
+  color: var(--primary); /* Cambia el color del título al hacer hover en el enlace */
+}
+
+.move-down {
+  margin-top: 200px; /* Ajusta este valor para mover los accesos hacia abajo */
+  transition: margin-top 0.5s ease-in-out; /* Transición suave */
 }

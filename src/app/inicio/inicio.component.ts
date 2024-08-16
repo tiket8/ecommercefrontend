@@ -44,11 +44,22 @@ export class InicioComponent implements OnInit {
   toggleLogin(): void {
     this.showLogin = !this.showLogin;
     this.showRegister = false;
+    if (this.showLogin) {
+      document.querySelector('.access-container')?.classList.add('move-down');
+    } else {
+      document.querySelector('.access-container')?.classList.remove('move-down');
+    }
   }
 
   toggleRegister(): void {
     this.showRegister = !this.showRegister;
     this.showLogin = false;
+    //controla la posicion de la ventana
+    if (this.showRegister) {
+      document.querySelector('.access-container')?.classList.add('move-down');
+    } else {
+      document.querySelector('.access-container')?.classList.remove('move-down');
+    }
   }
 
   onLoginSubmit(): void {
@@ -91,5 +102,7 @@ export class InicioComponent implements OnInit {
     // Cierra las ventanas modales si el clic no es dentro del formulario
     this.showLogin = false;
     this.showRegister = false;
+     // Vuelve los accesos a su posición original
+    document.querySelector('.access-container')?.classList.remove('move-down');
   }
 }
