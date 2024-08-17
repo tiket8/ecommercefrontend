@@ -9,9 +9,11 @@ import { CarritoService } from '../services/carrito.service';
 export class CarritoComponent implements OnInit {
   carrito: any[] = [];
 
+  
   constructor(private carritoService: CarritoService) {}
 
   ngOnInit(): void {
+    
     // Proporciona el argumento 'categoria' a la función obtenerCarrito
     this.carritoService.obtenerCarrito('electronica').subscribe(data => {
       this.carrito = data;
@@ -23,4 +25,5 @@ export class CarritoComponent implements OnInit {
       this.carrito = this.carrito.filter(item => item.productoId !== productoId);
     });
   }
+  
 }

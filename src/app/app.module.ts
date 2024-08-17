@@ -20,6 +20,7 @@ import { AuthGuard } from './auth.guard';
 import { AuthService } from './auth.service';
 import { OfertaService } from './services/oferta.service';
 import { AdminService} from './services/admin.service';
+import { ProductoService} from './services/producto.service';
 import { FiltroUsuariosPipe } from './filtro-usuarios.pipe';
 
 @NgModule({
@@ -49,7 +50,8 @@ import { FiltroUsuariosPipe } from './filtro-usuarios.pipe';
     AuthService,
     OfertaService,
     AuthGuard,
-    AdminService
+    AdminService,
+    ProductoService
 
   ],
   bootstrap: [AppComponent]

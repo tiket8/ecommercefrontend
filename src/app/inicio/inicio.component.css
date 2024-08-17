@@ -451,3 +451,14 @@ a:hover .access-title {
   margin-top: 200px; /* Ajusta este valor para mover los accesos hacia abajo */
   transition: margin-top 0.5s ease-in-out; /* Transición suave */
 }
+/*para el titulo entre secciones*/
+.tituloinicio {
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  margin-top: 40px; /* Espacio superior */
+}
+
+.tituloinicio h3 {
+  text-align: center; /* Centra el texto dentro del h3 */
+  margin-bottom: 20px; /* Espacio inferior */
+}

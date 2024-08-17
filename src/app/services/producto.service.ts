@@ -7,11 +7,19 @@ import { Producto } from '../models/producto';
   providedIn: 'root'
 })
 export class ProductoService {
-  private apiUrl = 'http://localhost:8000/api/productos';
+  // URL base de la API
+  private apiUrl = 'http://localhost:8000/api';
 
   constructor(private http: HttpClient) {}
 
-  obtenerProductos(): Observable<Producto[]> {
-    return this.http.get<Producto[]>(this.apiUrl);
+  // Obtener productos de Electrónica
+  obtenerProductosElectronica(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/productos/electronica`);
+  }
+
+  // Obtener productos de Beterwere
+  obtenerProductosBeterwere(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/productos/beterwere`);
   }
 }
+
