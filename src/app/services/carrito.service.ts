@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -11,31 +11,40 @@ export class CarritoService {
 
   constructor(private http: HttpClient) {}
 
+  private getHeaders(): HttpHeaders {
+    const token = localStorage.getItem('token');
+    return new HttpHeaders().set('Authorization', `Bearer ${token}`);
+  }
+
   obtenerCarrito(categoria?: string): Observable<any> {
+    const headers = this.getHeaders();
     let url = `${this.apiUrl}/carrito`;
     if (categoria) {
       url += `/${categoria}`;
     }
-    return this.http.get(url);
+    return this.http.get(url, { headers });
   }
 
   agregarProductoAlCarrito(producto_id: number, categoria: string, cantidad: number): Observable<any> {
-    // Verificar si hay productos en el carrito y la categoría coincide
+    const headers = this.getHeaders();
+
     if (this.categoriaActual && this.categoriaActual !== categoria) {
       return new Observable(observer => {
         observer.error('No puedes mezclar productos de diferentes categorías en el carrito.');
       });
     }
-  
-    // Si no hay conflicto de categorías, procede a agregar el producto al carrito
-    return this.http.post(`${this.apiUrl}/carrito`, { producto_id, categoria, cantidad });
+
+    return this.http.post(`${this.apiUrl}/carrito`, { producto_id, categoria, cantidad }, { headers });
   }
 
-    // Si no hay productos o la categoría coincide, agrega el producto
-   
-
   eliminarProductoDelCarrito(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/carrito/${id}`);
+    const headers = this.getHeaders();
+    return this.http.delete(`${this.apiUrl}/carrito/${id}`, { headers });
+  }
+
+  realizarPedido(): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.post(`${this.apiUrl}/pedidos`, {}, { headers });
   }
 
   limpiarCarrito(): void {
