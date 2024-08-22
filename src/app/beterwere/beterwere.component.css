@@ -75,3 +75,9 @@
     width: 1rem;
   }
   
+  .resaltado {
+    border: 2px solid var(--primary);
+    box-shadow: 0 0 10px 2px var(--primary);
+    transition: background-color 0.3s ease, border 0.3s ease, box-shadow 0.3s ease;
+  }
+  
