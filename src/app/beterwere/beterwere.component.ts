@@ -15,6 +15,9 @@ export class BeterwereComponent implements OnInit, AfterViewChecked {
   productos: any[] = [];  // Almacena la lista de productos de la categoría "beterwere"
   productoIdResaltado: number | null = null;  // Almacena el ID del producto que debe ser resaltado
   isResaltadoAplicado: boolean = false;  // Bandera para asegurarse de que el resaltado solo se aplique una vez
+  mostrarModal: boolean = false;  // Variable para mostrar/ocultar el modal
+  productoSeleccionado: any = null;  // Producto seleccionado para mostrar en el modal
+
 
   constructor(
     private carritoService: CarritoService,
@@ -23,6 +26,18 @@ export class BeterwereComponent implements OnInit, AfterViewChecked {
     private router: Router,
     private route: ActivatedRoute
   ) {}
+
+  //funcion de ventanas modales
+  abrirVentanaFlotante(producto: any): void {
+    this.productoSeleccionado = producto;  // Asigna el producto seleccionado
+    this.mostrarModal = true;  // Muestra el modal
+  }
+
+   // Función para cerrar el modal
+   cerrarVentanaFlotante(): void {
+    this.mostrarModal = false;  // Oculta el modal
+    this.productoSeleccionado = null;  // Limpia el producto seleccionado
+  }
 
   ngOnInit(): void {
     // Capturamos el parámetro 'producto' de la URL (si está presente)

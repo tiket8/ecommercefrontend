@@ -14,6 +14,8 @@ export class ElectronicaComponent implements OnInit {
   productos: any[] = [];
   productoIdResaltado: number | null = null;
   isResaltadoAplicado: boolean = false;
+  mostrarModal: boolean = false;  // Variable para mostrar/ocultar el modal
+  productoSeleccionado: any = null;  // Producto seleccionado para mostrar en el modal
 
   constructor(
     private carritoService: CarritoService,
@@ -22,6 +24,18 @@ export class ElectronicaComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute
   ) {}
+
+   //funcion de ventanas modales
+   abrirVentanaFlotante(producto: any): void {
+    this.productoSeleccionado = producto;  // Asigna el producto seleccionado
+    this.mostrarModal = true;  // Muestra el modal
+  }
+
+   // Función para cerrar el modal
+   cerrarVentanaFlotante(): void {
+    this.mostrarModal = false;  // Oculta el modal
+    this.productoSeleccionado = null;  // Limpia el producto seleccionado
+  }
 
   ngOnInit(): void {
     this.cargarProductos();
