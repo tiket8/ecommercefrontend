@@ -90,7 +90,7 @@ export class InicioComponent implements OnInit {
       }
     });
   }
-
+//Seccion Ofertas 
   obtenerOfertas(): void {
     this.ofertaService.getOfertas().subscribe(response => {
       this.ofertas = response;
@@ -98,6 +98,15 @@ export class InicioComponent implements OnInit {
       console.error('Error al obtener las ofertas', error);
     });
   }
+
+  verOferta(oferta: any): void {
+    const categoria = oferta.categoria;  // "electronica" o "beterwere"
+    const productoId = oferta.id;
+  
+    // Redirigir a la categoría con el ID del producto como query param
+    this.router.navigate([`/${categoria}`], { queryParams: { producto: productoId } });
+  }
+
   closeModal(event: Event): void {
     // Cierra las ventanas modales si el clic no es dentro del formulario
     this.showLogin = false;

@@ -14,7 +14,7 @@ table {
   width: 100%;
   margin-top: 20px;
   border-collapse: collapse;
-  background-color: #1b1b1b; /* Fondo oscuro para la tabla */
+  background-color: #696767; /* Fondo oscuro para la tabla */
   color: #fff; /* Texto blanco */
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.8); /* Sombra sutil para destacar la tabla */
 }

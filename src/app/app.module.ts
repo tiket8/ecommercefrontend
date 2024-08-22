@@ -14,7 +14,6 @@ import { AdminPedidosComponent } from './admin/admin-pedidos/admin-pedidos.compo
 import { AdminProductosComponent } from './admin/admin-productos/admin-productos.component';
 import { AdminUsuariosComponent } from './admin/admin-usuarios/admin-usuarios.component';
 import { AdminEstadisticasComponent } from './admin/admin-estadisticas/admin-estadisticas.component';
-import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
 import { FormsModule } from '@angular/forms';
 import { AuthGuard } from './auth.guard';
 import { AuthService } from './auth.service';
@@ -36,7 +35,6 @@ import { FiltroUsuariosPipe } from './filtro-usuarios.pipe';
     AdminProductosComponent,
     AdminUsuariosComponent,
     AdminEstadisticasComponent,
-    AdminDashboardComponent,
     FiltroUsuariosPipe,
   ],
   imports: [
@@ -44,7 +42,7 @@ import { FiltroUsuariosPipe } from './filtro-usuarios.pipe';
     AppRoutingModule,
     HttpClientModule,
     RouterModule,
-    FormsModule
+    FormsModule,
   ],
   providers: [
     AuthService,

@@ -81,7 +81,7 @@
             <div class="action">
               <p class="price">{{ oferta.precio | currency }}</p>
             </div>
-            <a [routerLink]="['/producto', oferta.id]" class="cart-button">Ver más</a>
+            <a (click)="verOferta(oferta)" class="cart-button">Ver Oferta</a>
           </div>
         </div>
       </div>

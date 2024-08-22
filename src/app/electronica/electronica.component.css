@@ -72,3 +72,17 @@
 .cart-icon {
   width: 1rem;
 }
+
+.resaltado {
+  border: 2px solid var(--primary); /* Borde resaltado usando el color primario */
+  background-color: var(--bg-card); /* Mantener el color de fondo de la tarjeta */
+  box-shadow: 0 0 10px 2px var(--primary); /* Añadir un efecto de sombra para hacer que la tarjeta destaque */
+  transition: background-color 0.3s ease, border 0.3s ease, box-shadow 0.3s ease; /* Suave transición */
+}
+
+.contenedor-productos .card.resaltado {
+  border: 2px solid var(--primary);
+  box-shadow: 0 0 10px 2px var(--primary);
+  transition: background-color 0.3s ease, border 0.3s ease, box-shadow 0.3s ease;
+}
+

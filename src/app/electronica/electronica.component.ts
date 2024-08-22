@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CarritoService } from '../services/carrito.service';
 import { ProductoService } from '../services/producto.service'; 
 import { AuthService } from '../auth.service'; 
@@ -12,28 +12,65 @@ import Swal from 'sweetalert2';
 })
 export class ElectronicaComponent implements OnInit {
   productos: any[] = [];
+  productoIdResaltado: number | null = null;
+  isResaltadoAplicado: boolean = false;
 
-  // dos inyecciones en un constructor
   constructor(
     private carritoService: CarritoService,
     private productoService: ProductoService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
     this.cargarProductos();
+
+    // Captura el parámetro 'producto' desde la URL
+    this.route.queryParams.subscribe(params => {
+      this.productoIdResaltado = params['producto'] ? +params['producto'] : null;
+    });
   }
+  
 
   cargarProductos(): void {
     this.productoService.obtenerProductosElectronica().subscribe(
       (data: any[]) => {
-        this.productos = data; // Asigna los productos recibidos a la propiedad productos
+        this.productos = data;
+        this.isResaltadoAplicado = false;
       },
       (error) => {
         console.error('Error al cargar los productos de electrónica', error);
       }
     );
+  }
+
+  ngAfterViewChecked(): void {
+    // Comprobamos si el resaltado ya ha sido aplicado
+    if (this.productoIdResaltado && !this.isResaltadoAplicado) {
+      this.resaltarProducto();
+    }
+  }
+
+  resaltarProducto(): void {
+    if (this.productoIdResaltado) {
+      setTimeout(() => {
+        const elemento = document.getElementById(`producto-${this.productoIdResaltado}`);
+        if (elemento) {
+          // Eliminamos la clase 'resaltado' de cualquier otro producto para evitar múltiples resaltados
+          const productosResaltados = document.querySelectorAll('.resaltado');
+          productosResaltados.forEach((producto) => {
+            producto.classList.remove('resaltado');
+          });
+  
+          // Aplicamos la clase 'resaltado' al producto seleccionado
+          elemento.classList.add('resaltado');
+  
+          // Desplazamos la vista al producto resaltado
+          elemento.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 0);
+    }
   }
 
   agregarAlCarrito(producto: any): void {

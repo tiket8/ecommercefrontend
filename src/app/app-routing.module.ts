@@ -10,8 +10,7 @@ import { AdminPedidosComponent } from './admin/admin-pedidos/admin-pedidos.compo
 import { AdminProductosComponent } from './admin/admin-productos/admin-productos.component';
 import { AdminUsuariosComponent } from './admin/admin-usuarios/admin-usuarios.component';
 import { AdminEstadisticasComponent } from './admin/admin-estadisticas/admin-estadisticas.component';
-import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
-import { AuthGuard } from './auth.guard';
+import { AuthGuard } from './auth.guard'; 
 
 const routes: Routes = [
   { path: '', component: InicioComponent },
@@ -20,16 +19,15 @@ const routes: Routes = [
   { path: 'carrito', component: CarritoComponent },
   { path: 'perfil', component: PerfilComponent },
   { path: 'pedidos', component: PedidosComponent },
-  {
-    path: 'admin', component: AdminDashboardComponent, canActivate: [AuthGuard],
-    children: [
-      { path: 'pedidos', component: AdminPedidosComponent },
-      { path: 'productos', component: AdminProductosComponent },
-      { path: 'productos/nuevo', component: AdminProductosComponent },
-      { path: 'usuarios', component: AdminUsuariosComponent },
-      { path: 'estadisticas', component: AdminEstadisticasComponent }
-    ]
-  },
+  
+  // Rutas de administración protegidas por AuthGuard
+  { path: 'admin/pedidos', component: AdminPedidosComponent, canActivate: [AuthGuard] },
+  { path: 'admin/productos', component: AdminProductosComponent, canActivate: [AuthGuard] },
+  { path: 'admin/productos/nuevo', component: AdminProductosComponent, canActivate: [AuthGuard] },
+  { path: 'admin/usuarios', component: AdminUsuariosComponent, canActivate: [AuthGuard] },
+  { path: 'admin/estadisticas', component: AdminEstadisticasComponent, canActivate: [AuthGuard] },
+
+  // Ruta comodín para redirigir a la página de inicio en caso de rutas no encontradas
   { path: '**', redirectTo: '' }
 ];
 

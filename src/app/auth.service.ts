@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { Router } from '@angular/router';
-import { tap } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 
 interface AuthResponse {
   token: string;
@@ -23,6 +23,11 @@ export class AuthService {
         localStorage.setItem('token', response.token);
         localStorage.setItem('usuario', JSON.stringify(response.usuario));
         this.handleUserRedirect(response.usuario);
+      }),
+      catchError(error => {
+        console.error('Error en el login:', error);
+        // Mostrar un mensaje de error al usuario
+        return throwError(error);
       })
     );
   }
