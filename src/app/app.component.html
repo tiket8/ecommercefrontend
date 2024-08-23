@@ -20,15 +20,32 @@
       </li>
 
       <!-- Opciones del menú para Cliente -->
-      <li class="nav-item" *ngIf="!isAdmin()">
-        <a class="nav-link" routerLink="/carrito" [class.active]="isActive('/carrito')" (click)="closeMenu()">Carrito</a>
-      </li>
-      <li class="nav-item" *ngIf="!isAdmin()">
-        <a class="nav-link" routerLink="/perfil" [class.active]="isActive('/perfil')" (click)="closeMenu()">Perfil</a>
-      </li>
-      <li class="nav-item" *ngIf="!isAdmin()">
-        <a class="nav-link" routerLink="/pedidos" [class.active]="isActive('/pedidos')" (click)="closeMenu()">Pedidos</a>
-      </li>
+<li class="nav-item" *ngIf="!isAdmin()">
+  <!-- Enlace al carrito de Electrónica -->
+  <a class="nav-link" routerLink="/carrito-electronica" 
+     [class.active]="isActive('/carrito-electronica')" 
+     (click)="closeMenu()">Carrito Electrónica</a>
+</li>
+
+<li class="nav-item" *ngIf="!isAdmin()">
+  <!-- Enlace al carrito de Beterwere -->
+  <a class="nav-link" routerLink="/carrito-beterwere" 
+     [class.active]="isActive('/carrito-beterwere')" 
+     (click)="closeMenu()">Carrito Beterwere</a>
+</li>
+
+<li class="nav-item" *ngIf="!isAdmin()">
+  <a class="nav-link" routerLink="/perfil" 
+     [class.active]="isActive('/perfil')" 
+     (click)="closeMenu()">Perfil</a>
+</li>
+
+<li class="nav-item" *ngIf="!isAdmin()">
+  <a class="nav-link" routerLink="/pedidos" 
+     [class.active]="isActive('/pedidos')" 
+     (click)="closeMenu()">Pedidos</a>
+</li>
+
 
       <!-- Opción común de cerrar sesión para todos los roles -->
       <li class="nav-item">

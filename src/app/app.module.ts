@@ -7,7 +7,6 @@ import { AppComponent } from './app.component';
 import { InicioComponent } from './inicio/inicio.component';
 import { ElectronicaComponent } from './electronica/electronica.component';
 import { BeterwereComponent } from './beterwere/beterwere.component';
-import { CarritoComponent } from './carrito/carrito.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { HttpClientModule } from '@angular/common/http';
 import { PedidosComponent } from './pedidos/pedidos.component';
@@ -23,6 +22,8 @@ import { AdminService} from './services/admin.service';
 import { ProductoService} from './services/producto.service';
 import { FiltroUsuariosPipe } from './pipes/filtro-usuarios.pipe';
 import { FiltroProductoPipe } from './pipes/filtro-productos.pipe';
+import { CarritoElectronicaComponent } from './carrito-electronica/carrito-electronica.component';
+import { CarritoBeterwereComponent } from './carrito-beterwere/carrito-beterwere.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,6 @@ import { FiltroProductoPipe } from './pipes/filtro-productos.pipe';
     InicioComponent,
     ElectronicaComponent,
     BeterwereComponent,
-    CarritoComponent,
     PerfilComponent,
     PedidosComponent,
     AdminPedidosComponent,
@@ -38,7 +38,9 @@ import { FiltroProductoPipe } from './pipes/filtro-productos.pipe';
     AdminUsuariosComponent,
     AdminEstadisticasComponent,
     FiltroProductoPipe,
-    FiltroUsuariosPipe,    
+    FiltroUsuariosPipe,
+    CarritoElectronicaComponent,
+    CarritoBeterwereComponent,    
   ],
   imports: [
     BrowserModule,
