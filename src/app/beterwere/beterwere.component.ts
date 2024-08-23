@@ -12,11 +12,12 @@ import Swal from 'sweetalert2';
 })
 export class BeterwereComponent implements OnInit, AfterViewChecked {
   
+  isResaltadoAplicado: boolean = false;  // Bandera para asegurarse de que el resaltado solo se aplique una vez
   productos: any[] = [];  // Almacena la lista de productos de la categoría "beterwere"
   productoIdResaltado: number | null = null;  // Almacena el ID del producto que debe ser resaltado
-  isResaltadoAplicado: boolean = false;  // Bandera para asegurarse de que el resaltado solo se aplique una vez
   mostrarModal: boolean = false;  // Variable para mostrar/ocultar el modal
   productoSeleccionado: any = null;  // Producto seleccionado para mostrar en el modal
+  filtro: string = '';
 
 
   constructor(

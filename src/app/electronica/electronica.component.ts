@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewChecked, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CarritoService } from '../services/carrito.service';
 import { ProductoService } from '../services/producto.service'; 
@@ -10,13 +10,15 @@ import Swal from 'sweetalert2';
   templateUrl: './electronica.component.html',
   styleUrls: ['./electronica.component.css']
 })
-export class ElectronicaComponent implements OnInit {
+export class ElectronicaComponent implements OnInit, AfterViewChecked {
   productos: any[] = [];
+  filtro: string = '';     // Variable para almacenar el término de búsqueda
   productoIdResaltado: number | null = null;
   isResaltadoAplicado: boolean = false;
   mostrarModal: boolean = false;  // Variable para mostrar/ocultar el modal
   productoSeleccionado: any = null;  // Producto seleccionado para mostrar en el modal
-
+  
+  
   constructor(
     private carritoService: CarritoService,
     private productoService: ProductoService,
@@ -67,24 +69,20 @@ export class ElectronicaComponent implements OnInit {
   }
 
   resaltarProducto(): void {
-    if (this.productoIdResaltado) {
-      setTimeout(() => {
-        const elemento = document.getElementById(`producto-${this.productoIdResaltado}`);
-        if (elemento) {
-          // Eliminamos la clase 'resaltado' de cualquier otro producto para evitar múltiples resaltados
-          const productosResaltados = document.querySelectorAll('.resaltado');
-          productosResaltados.forEach((producto) => {
-            producto.classList.remove('resaltado');
-          });
+    console.log(`Intentando resaltar el producto con ID: ${this.productoIdResaltado}`);
   
-          // Aplicamos la clase 'resaltado' al producto seleccionado
-          elemento.classList.add('resaltado');
+    setTimeout(() => {
+      const elemento = document.getElementById(`producto-${this.productoIdResaltado}`);
+      console.log(elemento); // Verifica si el elemento es encontrado
   
-          // Desplazamos la vista al producto resaltado
-          elemento.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      }, 0);
-    }
+      if (elemento) {
+        elemento.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        elemento.classList.add('resaltado');
+        this.isResaltadoAplicado = true;
+      } else {
+        console.log('El elemento no fue encontrado en el DOM');
+      }
+    }, 100); // Retraso de 100ms para asegurarse de que el DOM esté renderizado
   }
 
   agregarAlCarrito(producto: any): void {

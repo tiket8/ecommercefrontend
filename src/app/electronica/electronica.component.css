@@ -1,3 +1,15 @@
+
+.form-group {
+  margin-top: 100px; /* Ajusta este valor según el tamaño del navbar */
+  display: flex;
+  justify-content: center; /* Centra el campo de búsqueda horizontalmente */
+}
+
+.form-control {
+  width: 100%; /* El input toma el 100% del ancho del contenedor padre */
+  max-width: 500px; /* Máximo ancho del buscador */
+}
+
 .contenedor-productos {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));

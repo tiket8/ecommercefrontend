@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common'; 
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module'; 
@@ -20,7 +21,8 @@ import { AuthService } from './auth.service';
 import { OfertaService } from './services/oferta.service';
 import { AdminService} from './services/admin.service';
 import { ProductoService} from './services/producto.service';
-import { FiltroUsuariosPipe } from './filtro-usuarios.pipe';
+import { FiltroUsuariosPipe } from './pipes/filtro-usuarios.pipe';
+import { FiltroProductoPipe } from './pipes/filtro-productos.pipe';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,8 @@ import { FiltroUsuariosPipe } from './filtro-usuarios.pipe';
     AdminProductosComponent,
     AdminUsuariosComponent,
     AdminEstadisticasComponent,
-    FiltroUsuariosPipe,
+    FiltroProductoPipe,
+    FiltroUsuariosPipe,    
   ],
   imports: [
     BrowserModule,
@@ -43,6 +46,7 @@ import { FiltroUsuariosPipe } from './filtro-usuarios.pipe';
     HttpClientModule,
     RouterModule,
     FormsModule,
+    CommonModule
   ],
   providers: [
     AuthService,
