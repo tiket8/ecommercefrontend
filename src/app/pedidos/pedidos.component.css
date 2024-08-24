@@ -1,0 +1,31 @@
+.container {
+    margin-top: 20px;
+  }
+  
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .table {
+    width: 100%;
+    margin: auto;
+    background-color: #f8f9fa;
+    border-collapse: collapse;
+  }
+  
+  th, td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #dee2e6;
+  }
+  
+  ul {
+    padding-left: 0;
+    list-style-type: none;
+  }
+  
+  li {
+    margin-bottom: 5px;
+  }
+  

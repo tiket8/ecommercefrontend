@@ -1,26 +1,25 @@
 <div class="container">
-    <h1>Estadísticas</h1>
-  
-    <div class="card">
-      <div class="card-header">
-        Ventas Totales
-      </div>
-      <div class="card-body">
-        <h5 class="card-title">Total de Ventas: {{ estadisticas.ventasTotales }}</h5>
-      </div>
-    </div>
-  
-    <div class="card mt-4">
-      <div class="card-header">
-        Ventas por Categoría
-      </div>
-      <div class="card-body">
-        <ul>
-          <li *ngFor="let categoria of estadisticas.ventasPorCategoria">
-            {{ categoria.categoria }}: {{ categoria.total }}
-          </li>
-        </ul>
-      </div>
-    </div>
+  <h1>Estadísticas de Ventas por Categoría</h1>
+
+  <!-- Botones para filtrar por día o semana -->
+  <div class="btn-group mb-3">
+    <button (click)="actualizarFiltro('dia')" class="btn btn-primary" [class.active]="filtro === 'dia'">Ventas Diarias</button>
+    <button (click)="actualizarFiltro('semana')" class="btn btn-secondary" [class.active]="filtro === 'semana'">Ventas Semanales</button>
   </div>
-  
+
+  <!-- Tabla de estadísticas -->
+  <table>
+    <thead>
+      <tr>
+        <th>Categoría</th>
+        <th>Ventas</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let estadistica of estadisticas">
+        <td>{{ estadistica.categoria }}</td>
+        <td>{{ estadistica.ventas }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

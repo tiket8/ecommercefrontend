@@ -87,8 +87,9 @@
         <td>{{ producto.categoria }}</td>
         <td>{{ producto.estado ? 'Activo' : 'Inactivo' }}</td>
         <td class="actions-container">
+          <button *ngIf="producto.estado" (click)="desactivarProducto(producto.id)" class="btn-secondary custom-button btn-sm">Desactivar</button>
+          <button *ngIf="!producto.estado" (click)="activarProducto(producto.id)" class="btn-success custom-button btn-sm">Activar</button>
           <button (click)="editarProducto(producto)" class="btn-primary custom-button btn-sm">Editar</button>
-          <button (click)="desactivarProducto(producto.id)" class="btn-secondary custom-button btn-sm">Desactivar</button>
         </td>
       </tr>
     </tbody>

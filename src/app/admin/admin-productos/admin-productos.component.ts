@@ -11,7 +11,7 @@ export class AdminProductosComponent implements OnInit {
   productos: any[] = [];
   mostrarFormulario: boolean = false;
   productoSeleccionado: any = null; 
-  
+
   nuevoProducto = {
     nombre: '',
     descripcion: '',
@@ -30,6 +30,7 @@ export class AdminProductosComponent implements OnInit {
     this.obtenerProductos();
   }
 
+  // Manejo del archivo al seleccionar una imagen
   onFileChange(event: any) {
     const file = event.target.files[0];
     if (file) {
@@ -37,6 +38,7 @@ export class AdminProductosComponent implements OnInit {
     }
   }
 
+  // Agregar un nuevo producto
   agregarProducto() {
     const formData = new FormData();
     formData.append('nombre', this.nuevoProducto.nombre);
@@ -44,31 +46,33 @@ export class AdminProductosComponent implements OnInit {
     formData.append('precio', this.nuevoProducto.precio.toString());
     formData.append('cantidad', this.nuevoProducto.cantidad.toString());
     formData.append('categoria', this.nuevoProducto.categoria);
-    formData.append('estado', this.nuevoProducto.oferta ? '1' : '0');
+    formData.append('estado', this.nuevoProducto.estado ? '1' : '0');
     formData.append('oferta', this.nuevoProducto.oferta ? '1' : '0');
-    formData.append('codigo', this.nuevoProducto.codigo.toString());
+    formData.append('codigo', this.nuevoProducto.codigo);
 
     if (this.nuevoProducto.foto) {
       formData.append('foto', this.nuevoProducto.foto);
     }
 
     this.adminService.agregarProducto(formData).subscribe(response => {
-      this.router.navigate(['/admin/productos']);
-      this.obtenerProductos(); // Actualiza la lista de productos
-      this.mostrarFormulario = false; // Cierra el formulario de agregar producto
+      this.obtenerProductos();
+      this.mostrarFormulario = false;
     }, error => {
       console.error('Error al agregar producto', error);
     });    
   }
 
+  // Obtener todos los productos
   obtenerProductos() {
     this.adminService.obtenerProductos().subscribe(response => {
-      this.productos = response;
+      // Ordenar los productos por cantidad de menor a mayor
+      this.productos = response.sort((a, b) => a.cantidad - b.cantidad);
     }, error => {
       console.error('Error al obtener productos', error);
     });
   }
 
+  // Desactivar un producto
   desactivarProducto(id: number) {
     this.adminService.desactivarProducto(id).subscribe(response => {
       this.obtenerProductos();
@@ -76,36 +80,51 @@ export class AdminProductosComponent implements OnInit {
       console.error('Error al desactivar producto', error);
     });
   }
+
+  // Activa Producto
+  activarProducto(id: number) {
+    this.adminService.activarProducto(id).subscribe(response => {
+      this.obtenerProductos();
+    }, error => {
+      console.error('Error al activar producto', error);
+    });
+  }
+
+  // Editar un producto
   editarProducto(producto: any) {
     this.productoSeleccionado = { ...producto }; // Clonar el producto seleccionado
     this.mostrarFormulario = false; // Ocultar el formulario de nuevo producto
   }
-  
+
+  // Actualizar un producto existente
   actualizarProducto() {
-    const formData = new FormData();
-    formData.append('nombre', this.productoSeleccionado.nombre);
-    formData.append('descripcion', this.productoSeleccionado.descripcion);
-    formData.append('precio', this.productoSeleccionado.precio.toString());
-    formData.append('cantidad', this.productoSeleccionado.cantidad.toString());
-    formData.append('categoria', this.productoSeleccionado.categoria);
-    formData.append('estado', this.productoSeleccionado.estado ? '1' : '0');
-    formData.append('oferta', this.productoSeleccionado.oferta ? '1' : '0');
-    formData.append('codigo', this.nuevoProducto.codigo.toString());
-    
-    if (this.productoSeleccionado.foto instanceof File) {
-      formData.append('foto', this.productoSeleccionado.foto);
-    }
-  
-    this.adminService.updateProducto(this.productoSeleccionado.id, formData).subscribe(response => {
-      this.obtenerProductos(); // Actualizar la lista de productos
-      this.productoSeleccionado = null; // Limpiar la selección después de guardar
-    }, error => {
-      console.error('Error al actualizar producto', error);
-    });
+    const producto = {
+      nombre: this.productoSeleccionado.nombre || '',
+      descripcion: this.productoSeleccionado.descripcion || '',
+      precio: this.productoSeleccionado.precio.toString(),
+      cantidad: this.productoSeleccionado.cantidad.toString(),
+      categoria: this.productoSeleccionado.categoria || '',
+      estado: this.productoSeleccionado.estado ? '1' : '0',
+      oferta: this.productoSeleccionado.oferta ? '1' : '0',
+      codigo: this.productoSeleccionado.codigo || ''
+    };
+
+    console.log('Campos enviados en JSON:', producto);
+
+    this.adminService.updateProducto(this.productoSeleccionado.id, producto).subscribe(
+      response => {
+        this.obtenerProductos(); // Actualizar la lista de productos
+        this.productoSeleccionado = null; // Limpiar la selección después de guardar
+      },
+      error => {
+        console.error('Error al actualizar producto', error);
+        console.log('Errores de validación:', error.error.errors);  // Muestra los errores de validación
+      }
+    );
   }
-  
+
+  // Cancelar la edición del producto
   cancelarEdicion() {
     this.productoSeleccionado = null; // Limpiar la selección y cerrar el formulario
   }
-  
 }

@@ -17,7 +17,8 @@ export class ElectronicaComponent implements OnInit, AfterViewChecked {
   isResaltadoAplicado: boolean = false;
   mostrarModal: boolean = false;  // Variable para mostrar/ocultar el modal
   productoSeleccionado: any = null;  // Producto seleccionado para mostrar en el modal
-  
+  mostrarModalCantidad = false;  // Controla la visibilidad del modal de cantidad
+  cantidadSeleccionada: number = 1;  // Almacena la cantidad seleccionada por el usuario
   
   constructor(
     private carritoService: CarritoService,
@@ -27,14 +28,14 @@ export class ElectronicaComponent implements OnInit, AfterViewChecked {
     private route: ActivatedRoute
   ) {}
 
-   //funcion de ventanas modales
-   abrirVentanaFlotante(producto: any): void {
+  // Función para abrir el modal de ver más
+  abrirVentanaFlotante(producto: any): void {
     this.productoSeleccionado = producto;  // Asigna el producto seleccionado
     this.mostrarModal = true;  // Muestra el modal
   }
 
-   // Función para cerrar el modal
-   cerrarVentanaFlotante(): void {
+  // Función para cerrar el modal de ver más
+  cerrarVentanaFlotante(): void {
     this.mostrarModal = false;  // Oculta el modal
     this.productoSeleccionado = null;  // Limpia el producto seleccionado
   }
@@ -47,7 +48,6 @@ export class ElectronicaComponent implements OnInit, AfterViewChecked {
       this.productoIdResaltado = params['producto'] ? +params['producto'] : null;
     });
   }
-  
 
   cargarProductos(): void {
     this.productoService.obtenerProductosElectronica().subscribe(
@@ -85,7 +85,8 @@ export class ElectronicaComponent implements OnInit, AfterViewChecked {
     }, 100); // Retraso de 100ms para asegurarse de que el DOM esté renderizado
   }
 
-  agregarAlCarrito(producto: any): void {
+  // Lógica para agregar un producto al carrito con selección de cantidad
+  agregarAlCarrito(producto: any, cantidad: number): void {
     const token = localStorage.getItem('token');
     if (!token) {
       Swal.fire({
@@ -100,13 +101,60 @@ export class ElectronicaComponent implements OnInit, AfterViewChecked {
     }
 
     const categoria = 'electronica';
-    this.carritoService.agregarProductoAlCarrito(producto.id, categoria, 1).subscribe(
+    this.carritoService.agregarProductoAlCarrito(producto.id, categoria, cantidad).subscribe(
       response => {
-        console.log('Producto agregado al carrito:', response);
+        console.log(`Producto agregado al carrito con cantidad: ${cantidad}`, response);
       },
       error => {
         console.error('Error al agregar producto:', error);
       }
     );
+  }
+
+  // Abre la ventana flotante para seleccionar la cantidad
+  abrirVentanaCantidad(producto: any): void {
+    // Verifica que el producto y su cantidad estén definidos correctamente
+    if (producto && typeof producto.cantidad === 'number' && producto.cantidad > 0) {
+      Swal.fire({
+        title: 'Selecciona la cantidad',
+        input: 'number',
+        inputLabel: `Cantidad disponible: ${producto.cantidad}`,
+        inputValue: 1,
+        showCancelButton: true,
+        confirmButtonText: 'Añadir al carrito',
+        cancelButtonText: 'Cancelar',
+        inputValidator: (value) => {
+          const cantidadSeleccionada = Number(value);  // Asegura que el valor sea un número
+          
+          if (!cantidadSeleccionada || cantidadSeleccionada <= 0) {
+            return 'Debes seleccionar una cantidad válida';
+          }
+    
+          if (cantidadSeleccionada > producto.cantidad) {
+            return `Solo hay ${producto.cantidad} unidades disponibles`;
+          }
+
+          return null;
+        }
+      }).then((result) => {
+        if (result.isConfirmed) {
+          const cantidadSeleccionada = Number(result.value);  // Convierte el valor de entrada a número antes de usarlo
+          this.agregarAlCarrito(producto, cantidadSeleccionada);  // Llama a la función para agregar al carrito con la cantidad seleccionada
+        }
+      });
+    } else {
+      // Si no hay stock o el producto no está bien definido, muestra un mensaje de error
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'El producto no tiene stock disponible o hubo un error.',
+        confirmButtonText: 'OK'
+      });
+    }
+  }
+
+  // Cierra el modal de selección de cantidad
+  cerrarVentanaCantidad(): void {
+    this.mostrarModalCantidad = false;  // Oculta el modal
   }
 }

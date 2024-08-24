@@ -18,7 +18,8 @@ export class BeterwereComponent implements OnInit, AfterViewChecked {
   mostrarModal: boolean = false;  // Variable para mostrar/ocultar el modal
   productoSeleccionado: any = null;  // Producto seleccionado para mostrar en el modal
   filtro: string = '';
-
+  mostrarModalCantidad = false;  // Controla la visibilidad del modal
+  cantidadSeleccionada: number = 1;  // Almacena la cantidad seleccionada por el usuario
 
   constructor(
     private carritoService: CarritoService,
@@ -84,30 +85,116 @@ export class BeterwereComponent implements OnInit, AfterViewChecked {
     }
   }
 
-  agregarAlCarrito(producto: any): void {
-    // Comprueba si el usuario ha iniciado sesión (verificando el token en localStorage)
+  // Lógica para agregar un producto al carrito
+  agregarAlCarrito(producto: any, cantidad: number): void {
+    // Verifica si el usuario ha iniciado sesión
     const token = localStorage.getItem('token');
     if (!token) {
-      // Si no ha iniciado sesión, muestra un mensaje de advertencia y redirige al usuario a la página de login
       Swal.fire({
         icon: 'warning',
         title: 'Iniciar sesión',
         text: 'Debes iniciar sesión para agregar productos al carrito.',
         confirmButtonText: 'Aceptar'
       }).then(() => {
-        this.router.navigate(['/login']); // Redirige al usuario a la página de inicio de sesión
+        this.router.navigate(['/login']);
       });
-      return;  // Detiene la ejecución si no hay sesión iniciada
+      return;
     }
+  
+  
 
     // Si el usuario está autenticado, llama al servicio para agregar el producto al carrito
-    this.carritoService.agregarProductoAlCarrito(producto.id, 'beterwere', 1).subscribe(
+    this.carritoService.agregarProductoAlCarrito(producto.id, 'beterwere', cantidad).subscribe(
       response => {
-        console.log('Producto agregado al carrito:', response);  // Muestra un mensaje de éxito en la consola
+        console.log(`Producto agregado al carrito con cantidad: ${cantidad}`, response);  // Éxito al agregar
       },
       error => {
-        console.error('Error al agregar producto:', error);  // Muestra un mensaje de error si ocurre algún problema al agregar el producto
+        console.error('Error al agregar producto:', error);  // Maneja errores al agregar al carrito
       }
     );
   }
+      // Abre la ventana flotante para seleccionar la cantidad
+      abrirVentanaCantidad(producto: any): void {
+        // Verifica que producto y su cantidad estén definidos correctamente
+        if (producto && typeof producto.cantidad === 'number' && producto.cantidad > 0) {
+            Swal.fire({
+                title: 'Selecciona la cantidad',
+                input: 'number',
+                inputLabel: `Cantidad disponible: ${producto.cantidad}`,
+                inputValue: 1,
+                showCancelButton: true,
+                confirmButtonText: 'Añadir al carrito',
+                cancelButtonText: 'Cancelar',
+                inputValidator: (value) => {
+                    const cantidadSeleccionada = Number(value);  // Asegúrate de que el valor sea un número
+    
+                    if (!cantidadSeleccionada || cantidadSeleccionada <= 0) {
+                        return 'Debes seleccionar una cantidad válida';
+                    }
+    
+                    if (cantidadSeleccionada > producto.cantidad) {
+                        return `Solo hay ${producto.cantidad} unidades disponibles`;  // Usa producto.cantidad correctamente
+                    }
+    
+                    return null;
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const cantidadSeleccionada = Number(result.value);  // Convierte el valor de entrada a número antes de usarlo
+                    this.agregarAlCarrito(producto, cantidadSeleccionada);  // Llama a la función para agregar al carrito con la cantidad seleccionada
+                }
+            });
+        } else {
+            // Si no hay stock o el producto no está bien definido, muestra un mensaje de error
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'El producto no tiene stock disponible o hubo un error.',
+                confirmButtonText: 'OK'
+            });
+        }
+    }
+    
+
+    // Cierra la ventana flotante
+    cerrarVentanaCantidad(): void {
+      this.mostrarModalCantidad = false;  // Oculta el modal
+    }
+
+    
+    // Confirma la cantidad y agrega al carrito
+      confirmarAgregarAlCarrito(): void {
+        // Verifica si la cantidad seleccionada es mayor que el stock disponible
+        const cantidadSeleccionada = Number(this.cantidadSeleccionada);  // Asegurarse de que sea un número
+    const stockDisponible = Number(this.productoSeleccionado.stock);  // Asegurarse de que sea un número
+
+    if (cantidadSeleccionada > stockDisponible) {
+      alert('No hay suficiente stock disponible');  // Muestra una alerta si la cantidad excede el stock
+      return;  // Detiene la ejecución de la función si no hay suficiente stock
+    }
+
+    // Llama al servicio del carrito para agregar el producto con la cantidad seleccionada
+    this.carritoService.agregarProductoAlCarrito(this.productoSeleccionado.id, 'beterwere', cantidadSeleccionada).subscribe(
+      response => {
+        alert(response.success);  // Muestra un mensaje de éxito al agregar el producto
+        this.cerrarVentanaCantidad();  // Cierra el modal después de agregar el producto
+      },
+      error => {
+        console.error('Error al agregar producto al carrito', error);  // Muestra un error en la consola si la operación falla
+      }
+    );
+
+
+
+      // Llama al servicio del carrito para agregar el producto con la cantidad seleccionada
+      this.carritoService.agregarProductoAlCarrito(this.productoSeleccionado.id, 'beterwere', this.cantidadSeleccionada).subscribe(
+        response => {
+          alert(response.success);  // Muestra un mensaje de éxito al agregar el producto
+          this.cerrarVentanaCantidad();  // Cierra el modal después de agregar el producto
+        },
+        error => {
+          console.error('Error al agregar producto al carrito', error);  // Muestra un error en la consola si la operación falla
+        }
+      );
+    }
 }

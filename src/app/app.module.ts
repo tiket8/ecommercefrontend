@@ -9,7 +9,6 @@ import { ElectronicaComponent } from './electronica/electronica.component';
 import { BeterwereComponent } from './beterwere/beterwere.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { HttpClientModule } from '@angular/common/http';
-import { PedidosComponent } from './pedidos/pedidos.component';
 import { AdminPedidosComponent } from './admin/admin-pedidos/admin-pedidos.component';
 import { AdminProductosComponent } from './admin/admin-productos/admin-productos.component';
 import { AdminUsuariosComponent } from './admin/admin-usuarios/admin-usuarios.component';
@@ -24,6 +23,9 @@ import { FiltroUsuariosPipe } from './pipes/filtro-usuarios.pipe';
 import { FiltroProductoPipe } from './pipes/filtro-productos.pipe';
 import { CarritoElectronicaComponent } from './carrito-electronica/carrito-electronica.component';
 import { CarritoBeterwereComponent } from './carrito-beterwere/carrito-beterwere.component';
+import { PedidosComponent } from './pedidos/pedidos.component';
+
+
 
 @NgModule({
   declarations: [
@@ -32,7 +34,6 @@ import { CarritoBeterwereComponent } from './carrito-beterwere/carrito-beterwere
     ElectronicaComponent,
     BeterwereComponent,
     PerfilComponent,
-    PedidosComponent,
     AdminPedidosComponent,
     AdminProductosComponent,
     AdminUsuariosComponent,
@@ -40,7 +41,8 @@ import { CarritoBeterwereComponent } from './carrito-beterwere/carrito-beterwere
     FiltroProductoPipe,
     FiltroUsuariosPipe,
     CarritoElectronicaComponent,
-    CarritoBeterwereComponent,    
+    CarritoBeterwereComponent,
+    PedidosComponent,   
   ],
   imports: [
     BrowserModule,
@@ -48,7 +50,7 @@ import { CarritoBeterwereComponent } from './carrito-beterwere/carrito-beterwere
     HttpClientModule,
     RouterModule,
     FormsModule,
-    CommonModule
+    CommonModule,
   ],
   providers: [
     AuthService,

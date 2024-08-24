@@ -20,16 +20,29 @@ export class AdminPedidosComponent implements OnInit {
     this.obtenerPedidos();
   }
 
-  // Obtener la lista de pedidos
+  // Obtener la lista de pedidos y ordenarlos por estado
   obtenerPedidos(): void {
     this.adminService.obtenerPedidos().subscribe(
       (response: any) => {
-        this.pedidos = response;
+        // Ordenar los pedidos por estado
+        this.pedidos = response.sort((a: any, b: any) => this.ordenarPorEstado(a.estado, b.estado));
       },
       error => {
         console.error('Error al obtener los pedidos:', error);
       }
     );
+  }
+
+  // Función de comparación para ordenar los pedidos por estado
+  ordenarPorEstado(estadoA: string, estadoB: string): number {
+    const orden = ['en proceso', 'fecha asignada', 'vendido'];
+
+    // Obtener los índices de los estados en el arreglo `orden`
+    const indiceA = orden.indexOf(estadoA);
+    const indiceB = orden.indexOf(estadoB);
+
+    // Retornar el resultado de la comparación
+    return indiceA - indiceB;
   }
 
   // Abrir modal para ver los detalles
@@ -93,15 +106,12 @@ export class AdminPedidosComponent implements OnInit {
 
   // Actualizar estado
   actualizarEstado(pedidoId: number, estado: string, fecha_entrega?: string): void {
-    // Crear un objeto que siempre incluya el estado
     const data: { estado: string, fecha_entrega?: string } = { estado };
-  
-    // Si el estado es "fecha asignada" y la fecha de entrega está definida, agrégala a los datos
+
     if (estado === 'fecha asignada' && fecha_entrega) {
       data.fecha_entrega = fecha_entrega;
     }
-  
-    // Llamar al servicio con los datos que pueden incluir o no la fecha de entrega
+
     this.adminService.actualizarPedido(pedidoId, data).subscribe(
       response => {
         Swal.fire('Éxito', 'Estado del pedido actualizado', 'success');
@@ -114,5 +124,4 @@ export class AdminPedidosComponent implements OnInit {
       }
     );
   }
-
 }

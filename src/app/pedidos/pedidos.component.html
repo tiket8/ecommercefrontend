@@ -1,1 +1,35 @@
-<p>pedidos works!</p>
+<div class="container">
+    <h2>Mis Pedidos</h2>
+    
+    <!-- Mostrar un mensaje si no hay pedidos -->
+    <div *ngIf="pedidos.length === 0">
+      <p>No tienes pedidos.</p>
+    </div>
+  
+    <!-- Mostrar la tabla con los pedidos -->
+    <table *ngIf="pedidos.length > 0" class="table table-striped">
+      <thead>
+        <tr>
+          <th>ID del Pedido</th>
+          <th>Estado</th>
+          <th>Fecha de Entrega</th>
+          <th>Productos</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let pedido of pedidos">
+          <td>{{ pedido.id }}</td>
+          <td>{{ pedido.estado }}</td>
+          <td>{{ pedido.fecha_entrega ? pedido.fecha_entrega : 'No asignada' }}</td>
+          <td>
+            <ul>
+              <li *ngFor="let producto of pedido.productos">
+                {{ producto.nombre }} ({{ producto.pivot.cantidad }} unidades)
+              </li>
+            </ul>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

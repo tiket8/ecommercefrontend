@@ -53,6 +53,8 @@ export class AdminService {
     return this.http.put<any>(`${this.apiUrl}/pedidos/${id}/estado`, data, this.obtenerEncabezadosAutenticacion());
   }
 
+  
+
   // ------------------- Productos -------------------
 
   obtenerProductos(): Observable<any[]> {
@@ -66,9 +68,13 @@ export class AdminService {
   desactivarProducto(id: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/productos/${id}`, this.obtenerEncabezadosAutenticacion());
   }
+  
+  activarProducto(id: number): Observable<any> {
+    return this.http.put(`${this.apiUrl}/productos/activar/${id}`, {}, this.obtenerEncabezadosAutenticacion());
+  }
 
-  updateProducto(id: number, data: FormData): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/productos/${id}`, data, this.obtenerEncabezadosAutenticacion());
+  updateProducto(id: number, producto: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/productos/${id}`, producto, this.obtenerEncabezadosAutenticacion());
   }
 
   // ------------------- Usuarios -------------------
@@ -89,9 +95,16 @@ export class AdminService {
     return this.http.put<any>(`${this.apiUrl}/usuarios/activar/${id}`, {}, this.obtenerEncabezadosAutenticacion());
   }
 
-  // ------------------- Estadísticas -------------------
+   // ------------------- Estadísticas -------------------
 
-  getEstadisticas(): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/estadisticas`, this.obtenerEncabezadosAutenticacion());
-  }
+  /// Obtener estadísticas de ventas por categoría, con opción de filtrar por día o semana
+obtenerVentasPorCategoria(filtro: string): Observable<any> {
+  const url = `${this.apiUrl}/estadisticas/ventas-por-categoria?filtro=${filtro}`;
+  return this.http.get<any>(url, this.obtenerEncabezadosAutenticacion()).pipe(
+    catchError((error) => {
+      console.error('Error al obtener las estadísticas de ventas por categoría', error);
+      return throwError(() => new Error('Error al obtener las estadísticas de ventas por categoría'));
+    })
+  );
+}
 }
